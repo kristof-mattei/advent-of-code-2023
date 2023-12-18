@@ -1,7 +1,7 @@
-use hashbrown::HashMap;
 use std::cmp::Ordering;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
+use hashbrown::HashMap;
 
 advent_of_code_2023::solution!(248_559_379, 249_631_254);
 

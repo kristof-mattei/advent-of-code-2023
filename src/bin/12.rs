@@ -1,7 +1,7 @@
-use hashbrown::HashMap;
 use std::fmt::Debug;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
+use hashbrown::HashMap;
 
 advent_of_code_2023::solution!(7191, 6_512_849_198_636u64);
 

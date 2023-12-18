@@ -1,6 +1,5 @@
-use hashbrown::HashMap;
-
 use advent_of_code_2023::shared::{PartSolution, Parts};
+use hashbrown::HashMap;
 
 advent_of_code_2023::solution!(110_677, 90551);
 

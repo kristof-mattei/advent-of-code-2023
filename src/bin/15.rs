@@ -1,7 +1,8 @@
 use std::rc::Rc;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
-use hashbrown::{hash_map::Entry, HashMap};
+use hashbrown::hash_map::Entry;
+use hashbrown::HashMap;
 
 advent_of_code_2023::solution!(512_797, 262_454);
 
