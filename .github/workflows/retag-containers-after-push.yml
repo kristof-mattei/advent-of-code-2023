@@ -55,7 +55,7 @@ jobs:
       fromJSON(needs.repo-has-container.outputs.has_container) == true
     steps:
       - name: Checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           show-progress: false
           fetch-depth: 2
@@ -79,7 +79,7 @@ jobs:
           fi
 
       - name: Setup Node.js
-        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -91,7 +91,7 @@ jobs:
           npm ci --ignore-scripts
 
       - name: Download crane tar, extract, and add folder to path.
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const tc = require("@actions/tool-cache");
@@ -164,7 +164,7 @@ jobs:
 
       - name: Set the new TAGs
         id: meta
-        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        uses: docker/metadata-action@31cebacef4805868f9ce9a0cb03ee36c32df2ac4 # v5.3.0
         with:
           images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
           flavor: |

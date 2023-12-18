@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'advent-of-code-2022'",
+            "name": "Debug executable 'advent-of-code-2023'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=advent-of-code-2022",
-                    "--package=advent-of-code-2022"
+                    "--bin=advent-of-code-2023",
+                    "--package=advent-of-code-2023"
                 ],
                 "filter": {
-                    "name": "advent-of-code-2022",
+                    "name": "advent-of-code-2023",
                     "kind": "bin"
                 }
             },
@@ -23,23 +23,23 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,advent_of_code_2022=trace"
+                "RUST_LOG": "debug,advent_of_code_2023=trace"
             },
             "terminal": "console"
         },
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'advent-of-code-2022'",
+            "name": "Debug unit tests in executable 'advent-of-code-2023'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=advent-of-code-2022",
-                    "--package=advent-of-code-2022"
+                    "--bin=advent-of-code-2023",
+                    "--package=advent-of-code-2023"
                 ],
                 "filter": {
-                    "name": "advent-of-code-2022",
+                    "name": "advent-of-code-2023",
                     "kind": "bin"
                 }
             },
@@ -47,7 +47,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,advent_of_code_2022=trace"
+                "RUST_LOG": "debug,advent_of_code_2023=trace"
             },
             "terminal": "console"
         },
@@ -60,7 +60,7 @@
                     "test",
                     "--no-run",
                     "--test=integration_tests",
-                    "--package=advent-of-code-2022"
+                    "--package=advent-of-code-2023"
                 ],
                 "filter": {
                     "name": "integration_tests",
@@ -71,7 +71,7 @@
             "cwd": "${workspaceFolder}",
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "debug,advent_of_code_2022=trace"
+                "RUST_LOG": "debug,advent_of_code_2023=trace"
             },
             "terminal": "console"
         }
