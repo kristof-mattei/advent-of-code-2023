@@ -9,7 +9,7 @@ use std::str::FromStr;
 ///
 /// ```
 /// # use advent_of_code_2023::shared::day::Day;
-/// let day = Day::new(8).unwrap();
+/// const day: Day = Day::try_new(8).unwrap();
 /// assert_eq!(day.to_string(), "08")
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -19,17 +19,18 @@ impl Day {
     /// Creates a [`Day`] from the provided value if it's in the valid range,
     /// returns [`None`] otherwise.
     #[must_use]
-    pub fn new(day: u8) -> Option<Self> {
+    pub const fn try_new(day: u8) -> Option<Self> {
         if day == 0 || day > 25 {
             return None;
         }
-        Some(Self(day))
+
+        Some(Day(day))
     }
 
     // Not part of the public API
     #[must_use]
     #[doc(hidden)]
-    pub const fn __new_unchecked(day: u8) -> Self {
+    pub const fn new_unchecked(day: u8) -> Self {
         Self(day)
     }
 
@@ -66,7 +67,7 @@ impl FromStr for Day {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let day = s.parse().map_err(|_| DayFromStrError)?;
-        Self::new(day).ok_or(DayFromStrError)
+        Self::try_new(day).ok_or(DayFromStrError)
     }
 }
 
@@ -87,14 +88,10 @@ impl Display for DayFromStrError {
 #[macro_export]
 macro_rules! day {
     ($day:literal) => {{
-        const _ASSERT: () = assert!(
-            $day != 0 && $day <= 25,
-            concat!(
-                "invalid day number `",
-                $day,
-                "`, expecting a value between 1 and 25"
-            ),
-        );
-        $crate::shared::day::Day::__new_unchecked($day)
+        $crate::shared::day::Day::try_new($day).expect(concat!(
+            "invalid day number `",
+            $day,
+            "`, expecting a value between 1 and 25"
+        ))
     }};
 }

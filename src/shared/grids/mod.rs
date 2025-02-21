@@ -5,12 +5,46 @@ use std::cmp::PartialEq;
 use std::ops::Index;
 use std::slice::Iter;
 
-#[allow(dead_code)]
-pub(super) trait Neighbors {
+#[derive(PartialEq, Eq, Debug)]
+pub enum HorizontalVerticalDirection {
+    Up,
+    Right,
+    Down,
+    Left,
+}
+
+#[derive(PartialEq, Eq, Debug)]
+pub enum HorizontalVerticalDiagonalDirection {
+    Up,
+    UpRight,
+    Right,
+    DownRight,
+    Down,
+    DownLeft,
+    Left,
+    UpLeft,
+}
+
+pub trait Neighbors {
     type Index: GridIndex;
 
-    fn neighbors(&self, coordinates: (Self::Index, Self::Index))
-        -> Vec<(Self::Index, Self::Index)>;
+    /// Gets the horizontal and vertical neighbors
+    fn hv_neighbors(
+        &self,
+        row_index: Self::Index,
+        column_index: Self::Index,
+    ) -> Vec<(Self::Index, Self::Index, HorizontalVerticalDirection)>;
+
+    /// Gets the horizontal, vertical, and diagonal neighbors
+    fn hvd_neighbors(
+        &self,
+        row_index: Self::Index,
+        column_index: Self::Index,
+    ) -> Vec<(
+        Self::Index,
+        Self::Index,
+        HorizontalVerticalDiagonalDirection,
+    )>;
 }
 
 pub trait GridIter {
@@ -55,8 +89,7 @@ pub trait GridIter {
     }
 }
 
-#[allow(dead_code)]
-pub(super) trait GridIndex {}
+pub trait GridIndex {}
 
 impl GridIndex for usize {}
 impl GridIndex for isize {}

@@ -65,7 +65,7 @@ macro_rules! solution {
             });
 
         fn main() {
-            // use advent_of_code_2023::template::runner::*;
+            // use advent_of_code_2024::template::runner::*;
             let input = $crate::shared::solution::read_file("inputs", &DAY);
 
             let part_1_expected_solution: PartSolution = PartSolution::from($solution_1);
