@@ -1,8 +1,8 @@
 use std::rc::Rc;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
-use hashbrown::hash_map::Entry;
 use hashbrown::HashMap;
+use hashbrown::hash_map::Entry;
 
 advent_of_code_2023::solution!(512_797, 262_454);
 
@@ -154,10 +154,10 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {
@@ -177,10 +177,10 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{hash_single, Solution, DAY};
+        use crate::{DAY, Solution, hash_single};
 
         #[test]
         fn outcome() {

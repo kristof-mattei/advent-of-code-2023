@@ -212,10 +212,10 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{parse_game, parse_hands, Card, Hand, Solution, Type, DAY};
+        use crate::{Card, DAY, Hand, Solution, Type, parse_game, parse_hands};
 
         #[test]
         fn outcome() {
@@ -418,10 +418,10 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{parse_game, parse_game_jack_is_wildcard, Hand, Solution, Type, DAY};
+        use crate::{DAY, Hand, Solution, Type, parse_game, parse_game_jack_is_wildcard};
 
         #[test]
         fn outcome() {
