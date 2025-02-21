@@ -115,10 +115,10 @@ impl Parts for Solution {
 mod test {
 
     mod part_1 {
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {
@@ -135,10 +135,10 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
-        use crate::{first_word_digit, last_word_digit, Solution, DAY};
+        use crate::{DAY, Solution, first_word_digit, last_word_digit};
 
         #[test]
         fn example() {

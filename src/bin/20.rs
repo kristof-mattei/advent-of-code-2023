@@ -257,17 +257,17 @@ fn handle_signals(
     let mut signals: Vec<(String, String, Pulse)> = vec![];
 
     match modules.get_mut(handler_name) {
-        Some((Kind::FlipFlop(ref mut ff), destinations)) => {
+        Some((Kind::FlipFlop(ff), destinations)) => {
             for (new_destination, new_pulse) in ff.receive(source, destinations, pulse) {
                 signals.push((handler_name.to_string(), new_destination, new_pulse));
             }
         },
-        Some((Kind::Conjunction(ref mut c), destinations)) => {
+        Some((Kind::Conjunction(c), destinations)) => {
             for (new_destination, new_pulse) in c.receive(source, destinations, pulse) {
                 signals.push((handler_name.to_string(), new_destination, new_pulse));
             }
         },
-        Some((Kind::Broadcaster(ref mut b), destinations)) => {
+        Some((Kind::Broadcaster(b), destinations)) => {
             for (new_destination, new_pulse) in b.receive(source, destinations, pulse) {
                 signals.push((handler_name.to_string(), new_destination, new_pulse));
             }
@@ -385,10 +385,10 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {
@@ -417,10 +417,10 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {

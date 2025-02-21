@@ -50,11 +50,7 @@ fn parse_input(input: &str) -> Galaxy {
         .enumerate()
         .filter_map(
             |(index, has_galaxies)| {
-                if has_galaxies {
-                    None
-                } else {
-                    Some(index)
-                }
+                if has_galaxies { None } else { Some(index) }
             },
         )
         .collect();
@@ -74,11 +70,7 @@ fn parse_input(input: &str) -> Galaxy {
         .enumerate()
         .filter_map(
             |(index, has_galaxies)| {
-                if has_galaxies {
-                    None
-                } else {
-                    Some(index)
-                }
+                if has_galaxies { None } else { Some(index) }
             },
         )
         .collect();
@@ -162,10 +154,10 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{parse_input, Galaxy, Solution, DAY};
+        use crate::{DAY, Galaxy, Solution, parse_input};
 
         #[test]
         fn outcome() {
@@ -190,10 +182,10 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{parse_input, sum_lengths_between_galaxies, Solution, DAY};
+        use crate::{DAY, Solution, parse_input, sum_lengths_between_galaxies};
 
         #[test]
         fn outcome() {
