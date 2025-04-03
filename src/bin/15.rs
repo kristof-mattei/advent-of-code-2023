@@ -97,7 +97,7 @@ fn put_lenses_in_boxes(parsed: &[(Label, Option<FocalLength>)]) -> usize {
                 } else {
                     lens_box.insert(label.get_label(), (*lens, *last_entry + 1));
                     *last_entry += 1;
-                };
+                }
             },
             (Entry::Occupied(mut o), None) => {
                 // box exist, we're removing the lens with label `label`
