@@ -113,7 +113,7 @@ fn part_2(garden: &[Vec<Tile>], start: (usize, usize)) -> usize {
 
     let c = u0;
 
-    let a = (u2 - (2 * u1) + u0) / 2;
+    let a = isize::midpoint(u2 - (2 * u1), u0);
 
     let b = u1 - u0 - a;
 

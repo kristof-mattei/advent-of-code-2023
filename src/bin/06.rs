@@ -96,7 +96,8 @@ fn calculate_possibilities(time: usize, distance: usize) -> usize {
     // r2 = ( - b + sqrt(D) ) / 2a
 
     // but we want the first whole number above root 1 -> ceil
-    let r1 = ((time as f64 + (((time * time) - 4 * distance) as f64).sqrt()) / 2.0).ceil() as usize;
+    let r1 =
+        f64::midpoint(time as f64, (((time * time) - 4 * distance) as f64).sqrt()).ceil() as usize;
 
     // and the last whole number beneight root 2 -> floor
     let r2 =
