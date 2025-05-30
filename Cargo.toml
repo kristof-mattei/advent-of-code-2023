@@ -40,6 +40,6 @@ let_underscore_drop = { level = "deny", priority = 127 }
 non_ascii_idents = { level = "deny", priority = 127 }
 
 [dependencies]
-color-eyre = "0.6.4"
+color-eyre = "0.6.5"
 hashbrown = "0.15.3"
 regex = "1.11.1"
