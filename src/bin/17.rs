@@ -134,7 +134,7 @@ fn distance(map: &[Vec<Block>], _current: Coordinates, neighbor: Coordinates) ->
 }
 
 fn heuristic(map: &[Vec<Block>], current: Coordinates) -> u32 {
-    #![allow(clippy::cast_possible_truncation)]
+    #![expect(clippy::cast_possible_truncation)]
     (map.len() - 1 - current.row_index + map[0].len() - 1 - current.column_index) as u32
 }
 
