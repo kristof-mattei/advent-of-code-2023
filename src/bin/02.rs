@@ -105,7 +105,7 @@ impl Game {
     }
 }
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 enum Cube {
     Blue(u32),
     Green(u32),

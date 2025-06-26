@@ -83,7 +83,7 @@ fn roll_west(platform: &mut [Vec<Rock>]) {
     while !stable {
         stable = true;
 
-        #[allow(clippy::needless_range_loop)]
+        #[expect(clippy::needless_range_loop)]
         for r in 0..platform.len() {
             for c in 1..platform[r].len() {
                 if platform[r][c] == Rock::Round {
@@ -148,7 +148,7 @@ fn roll_east(platform: &mut [Vec<Rock>]) {
     while !stable {
         stable = true;
 
-        #[allow(clippy::needless_range_loop)]
+        #[expect(clippy::needless_range_loop)]
         for r in 0..platform.len() {
             for c in (0..platform[r].len() - 1).rev() {
                 if platform[r][c] == Rock::Round {

@@ -64,15 +64,19 @@ fn find_start_piece(map: &[Vec<char>]) -> ((usize, usize), Tile) {
 
             let left = (j.checked_sub(1)).is_some_and(|jj| ['-', 'L', 'F'].contains(&line[jj]));
 
-            let right = (j + 1 < line.len())
-                .then(|| ['-', 'J', '7'].contains(&line[j + 1]))
-                .unwrap_or_default();
+            let right = if j + 1 < line.len() {
+                ['-', 'J', '7'].contains(&line[j + 1])
+            } else {
+                false
+            };
 
             let up = (i.checked_sub(1)).is_some_and(|ii| ['|', 'F', '7'].contains(&map[ii][j]));
 
-            let down = (i + 1 < map.len())
-                .then(|| ['|', 'L', 'J'].contains(&map[i + 1][j]))
-                .unwrap_or_default();
+            let down = if i + 1 < map.len() {
+                ['|', 'L', 'J'].contains(&map[i + 1][j])
+            } else {
+                false
+            };
 
             let start = match (up, down, left, right) {
                 // coming from top to bottom
@@ -141,7 +145,7 @@ fn next_coordinates(
 }
 
 fn mark_coordinates_as_part_of_loop(map: &mut [Vec<Tile>], coordinates: (usize, usize)) {
-    #[allow(clippy::match_on_vec_items)]
+    #[expect(clippy::indexing_slicing)]
     let new_tile = match map[coordinates.0][coordinates.1] {
         Tile::Vertical(_) => Tile::Vertical(true),
         Tile::Horizontal(_) => Tile::Horizontal(true),
