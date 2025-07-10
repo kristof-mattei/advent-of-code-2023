@@ -73,7 +73,7 @@ impl Label {
     }
 
     fn get_label(&self) -> Rc<str> {
-        self.label.clone()
+        Rc::clone(&self.label)
     }
 }
 
