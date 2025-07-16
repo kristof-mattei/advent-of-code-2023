@@ -13,7 +13,7 @@ static WORKFLOW_REGEX: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?<name>[a-z]+)\{(?<pieces>(.*),?)\}").unwrap());
 
 static WORKFLOW_REGEX_RULE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"(?<property>[xmas])(?<cmp>[<>])(?<value>[0-9]*):(?<target>[AR]|[a-z]*)").unwrap()
+    Regex::new("(?<property>[xmas])(?<cmp>[<>])(?<value>[0-9]*):(?<target>[AR]|[a-z]*)").unwrap()
 });
 
 struct Part {
@@ -321,7 +321,7 @@ fn next_recursive(
     limits: Limits,
     arg: usize,
 ) -> usize {
-    let padding = (0..arg).map(|_| ' ').collect::<String>();
+    let padding = std::iter::repeat_n(' ', arg).collect::<String>();
     match next {
         Next::Accept => {
             println!("{}GOOD: {}", padding, limits);
@@ -351,7 +351,7 @@ fn workflow_recursive(
 ) -> usize {
     let mut sums = 0;
 
-    let padding = (0..arg).map(|_| ' ').collect::<String>();
+    let padding = std::iter::repeat_n(' ', arg).collect::<String>();
 
     for rule in &current.rules {
         match rule {
@@ -387,7 +387,7 @@ fn workflow_recursive(
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -405,7 +405,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

@@ -119,10 +119,10 @@ fn parse_lines(input: &str) -> Vec<Instruction> {
 }
 
 fn get_lagoon_specs(instructions: &[&InstructionPart]) -> Coordinates {
-    let mut rows = 0isize;
+    let mut rows = 0_isize;
     let mut min_row = isize::MAX;
     let mut max_row = isize::MIN;
-    let mut columns = 0isize;
+    let mut columns = 0_isize;
     let mut min_column = isize::MAX;
     let mut max_column = isize::MIN;
 
@@ -220,7 +220,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -249,7 +249,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -265,7 +265,7 @@ mod test {
         #[test]
         fn example() {
             assert_eq!(
-                952_408_144_115usize,
+                952_408_144_115_usize,
                 (Solution {}).part_2(&read_file_part("examples", &DAY, 1))
             );
         }

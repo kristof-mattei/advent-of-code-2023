@@ -120,12 +120,12 @@ fn sum_lengths_between_galaxies(galaxy: &Galaxy, multiplier: usize) -> usize {
         let rows_to_add = galaxy
             .empty_rows
             .iter()
-            .filter(|r| row_range.contains(r))
+            .filter(|&r| row_range.contains(r))
             .count();
         let columns_to_add = galaxy
             .empty_columns
             .iter()
-            .filter(|r| column_range.contains(r))
+            .filter(|&r| column_range.contains(r))
             .count();
 
         let distance = ((max_row - min_row) - rows_to_add + (rows_to_add * multiplier))
@@ -154,7 +154,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Galaxy, Solution, parse_input};
@@ -182,7 +182,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution, parse_input, sum_lengths_between_galaxies};

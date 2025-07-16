@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::HashMap;
 
-advent_of_code_2023::solution!(7191, 6_512_849_198_636u64);
+advent_of_code_2023::solution!(7191, 6_512_849_198_636_u64);
 
 #[derive(Clone, PartialEq, Eq)]
 enum State {
@@ -232,7 +232,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -280,7 +280,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -288,7 +288,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                6_512_849_198_636u64,
+                6_512_849_198_636_u64,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }

@@ -108,7 +108,12 @@ fn get_any_start_direction(map: &[Vec<Tile>], start: &(usize, usize)) -> Directi
         Tile::NorthWest(true) => Direction::Down,
         Tile::NorthEast(true) => Direction::Left,
         Tile::Ground => panic!("We never start on ground"),
-        _ => panic!("Start tile should be part of the loop"),
+        Tile::Vertical(_)
+        | Tile::Horizontal(_)
+        | Tile::NorthEast(_)
+        | Tile::NorthWest(_)
+        | Tile::SouthWest(_)
+        | Tile::SouthEast(_) => panic!("Start tile should be part of the loop"),
     }
 }
 
@@ -247,7 +252,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -292,7 +297,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};

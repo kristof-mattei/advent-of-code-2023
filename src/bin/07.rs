@@ -192,7 +192,7 @@ impl Parts for Solution {
         hands
             .iter()
             .enumerate()
-            .fold(0usize, |acc, (i, hand)| acc + ((i + 1) * hand.bid))
+            .fold(0_usize, |acc, (i, hand)| acc + ((i + 1) * hand.bid))
             .into()
     }
 
@@ -204,7 +204,7 @@ impl Parts for Solution {
         hands
             .iter()
             .enumerate()
-            .fold(0usize, |acc, (i, hand)| acc + ((i + 1) * hand.bid))
+            .fold(0_usize, |acc, (i, hand)| acc + ((i + 1) * hand.bid))
             .into()
     }
 }
@@ -212,7 +212,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{Card, DAY, Hand, Solution, Type, parse_game, parse_hands};
@@ -418,7 +418,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Hand, Solution, Type, parse_game, parse_game_jack_is_wildcard};

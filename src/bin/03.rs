@@ -5,7 +5,7 @@ advent_of_code_2023::solution!(527_364, 79_026_871);
 enum Cell {
     Number(u32),
     Symbol(char),
-    Empty(),
+    Empty,
 }
 
 impl TryFrom<char> for Cell {
@@ -13,7 +13,7 @@ impl TryFrom<char> for Cell {
 
     fn try_from(c: char) -> Result<Self, Self::Error> {
         match c {
-            '.' => Ok(Cell::Empty()),
+            '.' => Ok(Cell::Empty),
             '0'..='9' => {
                 let n = u32::from(c) - 48;
 
@@ -197,7 +197,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -214,7 +214,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

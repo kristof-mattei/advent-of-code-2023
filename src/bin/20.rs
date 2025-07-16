@@ -3,7 +3,7 @@ use std::collections::VecDeque;
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::HashMap;
 
-advent_of_code_2023::solution!(763_500_168, 207_652_583_562_007usize);
+advent_of_code_2023::solution!(763_500_168, 207_652_583_562_007_usize);
 
 const BROADCASTER: &str = "broadcaster";
 
@@ -259,17 +259,17 @@ fn handle_signals(
     match modules.get_mut(handler_name) {
         Some((Kind::FlipFlop(ff), destinations)) => {
             for (new_destination, new_pulse) in ff.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
         Some((Kind::Conjunction(c), destinations)) => {
             for (new_destination, new_pulse) in c.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
         Some((Kind::Broadcaster(b), destinations)) => {
             for (new_destination, new_pulse) in b.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
         None => {},
@@ -281,7 +281,7 @@ fn handle_signals(
 fn press_button_1000(mut modules: HashMap<String, (Kind, Vec<String>)>) -> usize {
     let (mut low, mut high) = (0, 0);
 
-    for _ in 1usize..=1000 {
+    for _ in 1_usize..=1000 {
         let mut signals = VecDeque::from_iter([(
             String::from("button"),
             String::from(BROADCASTER),
@@ -322,7 +322,7 @@ fn press_button_forever(mut modules: HashMap<String, (Kind, Vec<String>)>) -> us
         .iter()
         .filter_map(|(n, (_, d))| {
             if d.contains(&rx_feeder) {
-                Some((n.clone(), 0usize))
+                Some((n.clone(), 0_usize))
             } else {
                 None
             }
@@ -385,7 +385,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -417,7 +417,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -425,7 +425,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                207_652_583_562_007usize,
+                207_652_583_562_007_usize,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }

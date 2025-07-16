@@ -1,4 +1,4 @@
-use std::ops::Index;
+use std::ops::{Deref, DerefMut, Index};
 
 use super::{
     GridIter, HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection, Neighbors,
@@ -6,6 +6,12 @@ use super::{
 
 #[derive(PartialEq, Eq, PartialOrd, Ord)]
 pub struct InfiniteRow<T>(Vec<T>);
+
+impl<T: Clone> std::clone::Clone for InfiniteRow<T> {
+    fn clone(&self) -> Self {
+        Self(self.0.clone())
+    }
+}
 
 impl<T> Index<isize> for InfiniteRow<T> {
     type Output = T;
@@ -27,12 +33,51 @@ impl<T> Index<usize> for InfiniteRow<T> {
     }
 }
 
+impl<T> Deref for InfiniteRow<T> {
+    type Target = [T];
+
+    #[inline]
+    fn deref(&self) -> &[T] {
+        self.0.as_slice()
+    }
+}
+
+impl<T> DerefMut for InfiniteRow<T> {
+    fn deref_mut(&mut self) -> &mut [T] {
+        self.0.as_mut_slice()
+    }
+}
+
 pub struct InfiniteGrid<T> {
     data: Vec<InfiniteRow<T>>,
     row_len: usize,
     column_len: usize,
     // max_row: usize,
     // max_column: usize,
+}
+
+impl<T> Deref for InfiniteGrid<T> {
+    type Target = [InfiniteRow<T>];
+
+    fn deref(&self) -> &[InfiniteRow<T>] {
+        self.data.as_slice()
+    }
+}
+
+impl<T> DerefMut for InfiniteGrid<T> {
+    fn deref_mut(&mut self) -> &mut [InfiniteRow<T>] {
+        self.data.as_mut_slice()
+    }
+}
+
+impl<T: Clone> Clone for InfiniteGrid<T> {
+    fn clone(&self) -> Self {
+        Self {
+            data: self.data.clone(),
+            row_len: self.row_len,
+            column_len: self.column_len,
+        }
+    }
 }
 
 impl<T> InfiniteGrid<T> {
@@ -83,22 +128,22 @@ impl<T> Neighbors for InfiniteGrid<T> {
         &self,
         row_index: Self::Index,
         column_index: Self::Index,
-    ) -> Vec<(Self::Index, Self::Index, HorizontalVerticalDirection)> {
+    ) -> Vec<((Self::Index, Self::Index), HorizontalVerticalDirection)> {
         vec![
-            (row_index - 1, column_index, HorizontalVerticalDirection::Up),
             (
-                row_index,
-                column_index + 1,
+                (row_index - 1, column_index),
+                HorizontalVerticalDirection::Up,
+            ),
+            (
+                (row_index, column_index + 1),
                 HorizontalVerticalDirection::Right,
             ),
             (
-                row_index + 1,
-                column_index,
+                (row_index + 1, column_index),
                 HorizontalVerticalDirection::Down,
             ),
             (
-                row_index,
-                column_index - 1,
+                (row_index, column_index - 1),
                 HorizontalVerticalDirection::Left,
             ),
         ]
@@ -109,49 +154,40 @@ impl<T> Neighbors for InfiniteGrid<T> {
         row_index: Self::Index,
         column_index: Self::Index,
     ) -> Vec<(
-        Self::Index,
-        Self::Index,
+        (Self::Index, Self::Index),
         HorizontalVerticalDiagonalDirection,
     )> {
         vec![
             (
-                row_index - 1,
-                column_index,
+                (row_index - 1, column_index),
                 HorizontalVerticalDiagonalDirection::Up,
             ),
             (
-                row_index - 1,
-                column_index + 1,
+                (row_index - 1, column_index + 1),
                 HorizontalVerticalDiagonalDirection::UpRight,
             ),
             (
-                row_index,
-                column_index + 1,
+                (row_index, column_index + 1),
                 HorizontalVerticalDiagonalDirection::Right,
             ),
             (
-                row_index + 1,
-                column_index + 1,
+                (row_index + 1, column_index + 1),
                 HorizontalVerticalDiagonalDirection::DownRight,
             ),
             (
-                row_index + 1,
-                column_index,
+                (row_index + 1, column_index),
                 HorizontalVerticalDiagonalDirection::Down,
             ),
             (
-                row_index + 1,
-                column_index - 1,
+                (row_index + 1, column_index - 1),
                 HorizontalVerticalDiagonalDirection::DownLeft,
             ),
             (
-                row_index,
-                column_index - 1,
+                (row_index, column_index - 1),
                 HorizontalVerticalDiagonalDirection::Left,
             ),
             (
-                row_index - 1,
-                column_index - 1,
+                (row_index - 1, column_index - 1),
                 HorizontalVerticalDiagonalDirection::UpLeft,
             ),
         ]
@@ -219,24 +255,24 @@ impl<T> Index<isize> for InfiniteGrid<T> {
 mod tests {
     use crate::shared::grids::infinite_grid::InfiniteGrid;
     use crate::shared::grids::{
-        HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection, Neighbors,
+        HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection, Neighbors as _,
     };
 
     #[test]
-    fn test_infinite_grid() {
+    fn infinite_grid() {
         let g = InfiniteGrid::new(vec![
             vec!['a', 'b', 'c'],
             vec!['d', 'e', 'f'],
             vec!['g', 'h', 'i'],
         ]);
 
-        assert_eq!('b', g[-9isize][-5isize]);
+        assert_eq!('b', g[-9_isize][-5_isize]);
 
-        assert_eq!('i', g[8isize][8isize]);
+        assert_eq!('i', g[8_isize][8_isize]);
     }
 
     #[test]
-    fn test_hv_neighbors_middle() {
+    fn hv_neighbors_middle() {
         let g = InfiniteGrid::new(vec![
             vec!['a', 'b', 'c'],
             vec!['d', 'e', 'f'],
@@ -244,17 +280,17 @@ mod tests {
         ]);
 
         let v = vec![
-            (0, 1, HorizontalVerticalDirection::Up),
-            (1, 2, HorizontalVerticalDirection::Right),
-            (2, 1, HorizontalVerticalDirection::Down),
-            (1, 0, HorizontalVerticalDirection::Left),
+            ((0, 1), HorizontalVerticalDirection::Up),
+            ((1, 2), HorizontalVerticalDirection::Right),
+            ((2, 1), HorizontalVerticalDirection::Down),
+            ((1, 0), HorizontalVerticalDirection::Left),
         ];
 
         assert_eq!(v, g.hv_neighbors(1, 1));
     }
 
     #[test]
-    fn test_hv_neighbors_corner() {
+    fn hv_neighbors_corner() {
         let g = InfiniteGrid::new(vec![
             vec!['a', 'b', 'c'],
             vec!['d', 'e', 'f'],
@@ -262,17 +298,17 @@ mod tests {
         ]);
 
         let v = vec![
-            (-1, 0, HorizontalVerticalDirection::Up),
-            (0, 1, HorizontalVerticalDirection::Right),
-            (1, 0, HorizontalVerticalDirection::Down),
-            (0, -1, HorizontalVerticalDirection::Left),
+            ((-1, 0), HorizontalVerticalDirection::Up),
+            ((0, 1), HorizontalVerticalDirection::Right),
+            ((1, 0), HorizontalVerticalDirection::Down),
+            ((0, -1), HorizontalVerticalDirection::Left),
         ];
 
         assert_eq!(v, g.hv_neighbors(0, 0));
     }
 
     #[test]
-    fn test_hvd_neighbors_middle() {
+    fn hvd_neighbors_middle() {
         let g = InfiniteGrid::new(vec![
             vec!['a', 'b', 'c'],
             vec!['d', 'e', 'f'],
@@ -280,21 +316,21 @@ mod tests {
         ]);
 
         let v = vec![
-            (0, 1, HorizontalVerticalDiagonalDirection::Up),
-            (0, 2, HorizontalVerticalDiagonalDirection::UpRight),
-            (1, 2, HorizontalVerticalDiagonalDirection::Right),
-            (2, 2, HorizontalVerticalDiagonalDirection::DownRight),
-            (2, 1, HorizontalVerticalDiagonalDirection::Down),
-            (2, 0, HorizontalVerticalDiagonalDirection::DownLeft),
-            (1, 0, HorizontalVerticalDiagonalDirection::Left),
-            (0, 0, HorizontalVerticalDiagonalDirection::UpLeft),
+            ((0, 1), HorizontalVerticalDiagonalDirection::Up),
+            ((0, 2), HorizontalVerticalDiagonalDirection::UpRight),
+            ((1, 2), HorizontalVerticalDiagonalDirection::Right),
+            ((2, 2), HorizontalVerticalDiagonalDirection::DownRight),
+            ((2, 1), HorizontalVerticalDiagonalDirection::Down),
+            ((2, 0), HorizontalVerticalDiagonalDirection::DownLeft),
+            ((1, 0), HorizontalVerticalDiagonalDirection::Left),
+            ((0, 0), HorizontalVerticalDiagonalDirection::UpLeft),
         ];
 
         assert_eq!(v, g.hvd_neighbors(1, 1));
     }
 
     #[test]
-    fn test_hvd_neighbors_corner() {
+    fn hvd_neighbors_corner() {
         let g = InfiniteGrid::new(vec![
             vec!['a', 'b', 'c'],
             vec!['d', 'e', 'f'],
@@ -302,14 +338,14 @@ mod tests {
         ]);
 
         let v = vec![
-            (-1, 0, HorizontalVerticalDiagonalDirection::Up),
-            (-1, 1, HorizontalVerticalDiagonalDirection::UpRight),
-            (0, 1, HorizontalVerticalDiagonalDirection::Right),
-            (1, 1, HorizontalVerticalDiagonalDirection::DownRight),
-            (1, 0, HorizontalVerticalDiagonalDirection::Down),
-            (1, -1, HorizontalVerticalDiagonalDirection::DownLeft),
-            (0, -1, HorizontalVerticalDiagonalDirection::Left),
-            (-1, -1, HorizontalVerticalDiagonalDirection::UpLeft),
+            ((-1, 0), HorizontalVerticalDiagonalDirection::Up),
+            ((-1, 1), HorizontalVerticalDiagonalDirection::UpRight),
+            ((0, 1), HorizontalVerticalDiagonalDirection::Right),
+            ((1, 1), HorizontalVerticalDiagonalDirection::DownRight),
+            ((1, 0), HorizontalVerticalDiagonalDirection::Down),
+            ((1, -1), HorizontalVerticalDiagonalDirection::DownLeft),
+            ((0, -1), HorizontalVerticalDiagonalDirection::Left),
+            ((-1, -1), HorizontalVerticalDiagonalDirection::UpLeft),
         ];
 
         assert_eq!(v, g.hvd_neighbors(0, 0));
