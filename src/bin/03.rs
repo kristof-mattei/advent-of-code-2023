@@ -5,7 +5,7 @@ advent_of_code_2023::solution!(527_364, 79_026_871);
 enum Cell {
     Number(u32),
     Symbol(char),
-    Empty(),
+    Empty,
 }
 
 impl TryFrom<char> for Cell {
@@ -13,7 +13,7 @@ impl TryFrom<char> for Cell {
 
     fn try_from(c: char) -> Result<Self, Self::Error> {
         match c {
-            '.' => Ok(Cell::Empty()),
+            '.' => Ok(Cell::Empty),
             '0'..='9' => {
                 let n = u32::from(c) - 48;
 
@@ -67,7 +67,7 @@ fn find_number_at(row: &[Cell], column_index: usize) -> Option<u32> {
     let mut number = 0;
 
     for c in &row[start..] {
-        if let Cell::Number(n) = c {
+        if let &Cell::Number(n) = c {
             number = number * 10 + n;
         } else {
             break;
@@ -151,7 +151,7 @@ fn multiply_gear_numbers(schematic: &Schematic) -> u32 {
 
     for (row_index, row) in schematic.iter().enumerate() {
         for (column_index, column) in row.iter().enumerate() {
-            if matches!(column, Cell::Symbol('*')) {
+            if matches!(column, &Cell::Symbol('*')) {
                 let gear_ratios = get_numbers_around(schematic, row_index, column_index);
 
                 if gear_ratios.len() > 1 {
@@ -169,7 +169,7 @@ fn sum_all_part_numbers(schematic: &Schematic) -> u32 {
 
     for (row_index, row) in schematic.iter().enumerate() {
         for (column_index, column) in row.iter().enumerate() {
-            if matches!(column, Cell::Symbol(_)) {
+            if matches!(column, &Cell::Symbol(_)) {
                 sum += get_numbers_around(schematic, row_index, column_index)
                     .iter()
                     .sum::<u32>();
@@ -197,7 +197,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -214,7 +214,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

@@ -13,7 +13,7 @@ static WORKFLOW_REGEX: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?<name>[a-z]+)\{(?<pieces>(.*),?)\}").unwrap());
 
 static WORKFLOW_REGEX_RULE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"(?<property>[xmas])(?<cmp>[<>])(?<value>[0-9]*):(?<target>[AR]|[a-z]*)").unwrap()
+    Regex::new("(?<property>[xmas])(?<cmp>[<>])(?<value>[0-9]*):(?<target>[AR]|[a-z]*)").unwrap()
 });
 
 struct Part {
@@ -52,22 +52,22 @@ enum Rule {
 
 impl Rule {
     fn process(&self, part: &Part) -> Option<Next> {
-        match self {
-            Rule::Lt(p, v, next) => {
-                if &p.value(part) < v {
+        match *self {
+            Rule::Lt(ref p, v, ref next) => {
+                if p.value(part) < v {
                     Some(next.clone())
                 } else {
                     None
                 }
             },
-            Rule::Gt(p, v, next) => {
-                if &p.value(part) > v {
+            Rule::Gt(ref p, v, ref next) => {
+                if p.value(part) > v {
                     Some(next.clone())
                 } else {
                     None
                 }
             },
-            Rule::Next(next) => Some(next.clone()),
+            Rule::Next(ref next) => Some(next.clone()),
         }
     }
 }
@@ -81,7 +81,7 @@ enum Property {
 
 impl std::fmt::Display for Property {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
+        match *self {
             Property::X => write!(f, "x"),
             Property::M => write!(f, "m"),
             Property::A => write!(f, "a"),
@@ -92,7 +92,7 @@ impl std::fmt::Display for Property {
 
 impl Property {
     fn value(&self, part: &Part) -> usize {
-        match self {
+        match *self {
             Property::X => part.x,
             Property::M => part.m,
             Property::A => part.a,
@@ -297,7 +297,7 @@ impl std::fmt::Display for Limits {
 
 impl Limits {
     fn set_less(&mut self, p: &Property, v: usize) {
-        match p {
+        match *p {
             Property::X => self.x.1 = v,
             Property::M => self.m.1 = v,
             Property::A => self.a.1 = v,
@@ -306,7 +306,7 @@ impl Limits {
     }
 
     fn set_more(&mut self, p: &Property, v: usize) {
-        match p {
+        match *p {
             Property::X => self.x.0 = v,
             Property::M => self.m.0 = v,
             Property::A => self.a.0 = v,
@@ -321,8 +321,8 @@ fn next_recursive(
     limits: Limits,
     arg: usize,
 ) -> usize {
-    let padding = (0..arg).map(|_| ' ').collect::<String>();
-    match next {
+    let padding = std::iter::repeat_n(' ', arg).collect::<String>();
+    match *next {
         Next::Accept => {
             println!("{}GOOD: {}", padding, limits);
 
@@ -335,7 +335,7 @@ fn next_recursive(
             println!("{}IGNORE", padding);
             0
         },
-        Next::Named(name) => {
+        Next::Named(ref name) => {
             let wf = workflows.get(name).expect("bad cache");
 
             workflow_recursive(wf, workflows, limits, arg)
@@ -351,31 +351,31 @@ fn workflow_recursive(
 ) -> usize {
     let mut sums = 0;
 
-    let padding = (0..arg).map(|_| ' ').collect::<String>();
+    let padding = std::iter::repeat_n(' ', arg).collect::<String>();
 
     for rule in &current.rules {
-        match rule {
-            Rule::Lt(p, v, n) => {
+        match *rule {
+            Rule::Lt(ref p, v, ref n) => {
                 let mut clone = limits.clone();
 
                 println!("{}{}<{}", padding, p, v);
 
-                clone.set_less(p, *v);
+                clone.set_less(p, v);
                 limits.set_more(p, v - 1);
 
                 sums += next_recursive(n, workflows, clone, arg + 4);
             },
-            Rule::Gt(p, v, n) => {
+            Rule::Gt(ref p, v, ref n) => {
                 let mut clone = limits.clone();
 
                 println!("{}{}>{}", padding, p, v);
 
-                clone.set_more(p, *v);
+                clone.set_more(p, v);
                 limits.set_less(p, v + 1);
 
                 sums += next_recursive(n, workflows, clone, arg + 4);
             },
-            Rule::Next(n) => {
+            Rule::Next(ref n) => {
                 sums += next_recursive(n, workflows, limits.clone(), arg);
             },
         }
@@ -387,7 +387,7 @@ fn workflow_recursive(
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -405,7 +405,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

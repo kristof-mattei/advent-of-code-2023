@@ -40,17 +40,17 @@ impl Direction {
         let row_limit = city_map.len();
         let column_limit = city_map[0].len();
 
-        let Coordinates {
+        let &Coordinates {
             row_index,
             column_index,
         } = row_column_index;
 
         match self {
-            Direction::Up => (row_index.checked_sub(1)).map(|up| (up, *column_index).into()),
+            Direction::Up => (row_index.checked_sub(1)).map(|up| (up, column_index).into()),
             Direction::Right => {
                 let right = column_index + 1;
                 if (right) < column_limit {
-                    Some((*row_index, right).into())
+                    Some((row_index, right).into())
                 } else {
                     None
                 }
@@ -59,12 +59,12 @@ impl Direction {
                 let down = row_index + 1;
 
                 if (down) < row_limit {
-                    Some((down, *column_index).into())
+                    Some((down, column_index).into())
                 } else {
                     None
                 }
             },
-            Direction::Left => (column_index.checked_sub(1)).map(|left| (*row_index, left).into()),
+            Direction::Left => (column_index.checked_sub(1)).map(|left| (row_index, left).into()),
         }
     }
 }
@@ -134,7 +134,11 @@ fn distance(map: &[Vec<Block>], _current: Coordinates, neighbor: Coordinates) ->
 }
 
 fn heuristic(map: &[Vec<Block>], current: Coordinates) -> u32 {
-    #![expect(clippy::cast_possible_truncation)]
+    #![expect(
+        clippy::as_conversions,
+        clippy::cast_possible_truncation,
+        reason = "We don't exceed u32 boundaries"
+    )]
     (map.len() - 1 - current.row_index + map[0].len() - 1 - current.column_index) as u32
 }
 
@@ -268,10 +272,10 @@ impl Parts for Solution {
             .iter()
             .skip(1)
             .map(
-                |Coordinates {
+                |&Coordinates {
                      row_index: r,
                      column_index: c,
-                 }| (parsed[*r][*c]).value,
+                 }| (parsed[r][c]).value,
             )
             .sum::<u32>()
             .into()
@@ -298,10 +302,10 @@ impl Parts for Solution {
             .iter()
             .skip(1)
             .map(
-                |Coordinates {
+                |&Coordinates {
                      row_index: r,
                      column_index: c,
-                 }| (parsed[*r][*c]).value,
+                 }| (parsed[r][c]).value,
             )
             .sum::<u32>()
             .into()
@@ -322,7 +326,7 @@ fn dump_map(map: &[Vec<Block>]) {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -339,7 +343,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

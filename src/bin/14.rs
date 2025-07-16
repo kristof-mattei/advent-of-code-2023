@@ -25,7 +25,7 @@ impl TryFrom<char> for Rock {
 
 impl std::fmt::Display for Rock {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let c = match self {
+        let c = match *self {
             Rock::Cube => '#',
             Rock::Round => 'O',
             Rock::None => '.',
@@ -83,7 +83,10 @@ fn roll_west(platform: &mut [Vec<Rock>]) {
     while !stable {
         stable = true;
 
-        #[expect(clippy::needless_range_loop)]
+        #[expect(
+            clippy::needless_range_loop,
+            reason = "Consistency between rows & columns"
+        )]
         for r in 0..platform.len() {
             for c in 1..platform[r].len() {
                 if platform[r][c] == Rock::Round {
@@ -148,7 +151,10 @@ fn roll_east(platform: &mut [Vec<Rock>]) {
     while !stable {
         stable = true;
 
-        #[expect(clippy::needless_range_loop)]
+        #[expect(
+            clippy::needless_range_loop,
+            reason = "Consistency between rows & columns"
+        )]
         for r in 0..platform.len() {
             for c in (0..platform[r].len() - 1).rev() {
                 if platform[r][c] == Rock::Round {
@@ -184,7 +190,7 @@ fn count(platform: &[Vec<Rock>]) -> usize {
         .map(|(i, row)| (platform.len() - i, row))
     {
         for column in row {
-            if matches!(column, Rock::Round) {
+            if matches!(*column, Rock::Round) {
                 total += row_number;
             }
         }
@@ -265,7 +271,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -283,7 +289,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

@@ -3,7 +3,7 @@ use std::fmt::Debug;
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::HashMap;
 
-advent_of_code_2023::solution!(7191, 6_512_849_198_636u64);
+advent_of_code_2023::solution!(7191, 6_512_849_198_636_u64);
 
 #[derive(Clone, PartialEq, Eq)]
 enum State {
@@ -14,7 +14,7 @@ enum State {
 
 impl Debug for State {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
+        match *self {
             Self::Damaged => write!(f, "#"),
             Self::Operational => write!(f, "."),
             Self::Unknown => write!(f, "?"),
@@ -77,12 +77,12 @@ fn dfs(
 ) -> usize {
     let Some(current_spring) = springs.first() else {
         // out of springs
-        match damaged_groups {
+        match *damaged_groups {
             [] => {
                 // and we're no longer expecting damaged springs
                 return 1;
             },
-            &[size] if size == damaged_group_progress => {
+            [size] if size == damaged_group_progress => {
                 // previous spring was a damaged one, but the group is full
                 return 1;
             },
@@ -96,14 +96,14 @@ fn dfs(
     };
 
     let Some(damaged_group_size) = damaged_groups.first().copied() else {
-        if springs.iter().any(|x| matches!(x, State::Damaged)) {
+        if springs.iter().any(|x| matches!(*x, State::Damaged)) {
             return 0;
         }
 
         return 1;
     };
 
-    match current_spring {
+    match *current_spring {
         State::Operational => {
             // we're not chasing down a broken spring, just move on to the next
             if damaged_group_progress == 0 {
@@ -189,7 +189,7 @@ fn dfs(
 fn sum_all_possibilities(conditions: &Conditions) -> usize {
     let mut sum = 0;
 
-    for (places, groups) in &conditions.rows {
+    for &(ref places, ref groups) in &conditions.rows {
         sum += arrangements(places, groups);
     }
 
@@ -206,7 +206,7 @@ impl Parts for Solution {
     fn part_2(&self, input: &str) -> PartSolution {
         let mut conditions = parse_input(input);
 
-        for (states, damaged) in &mut conditions.rows {
+        for &mut (ref mut states, ref mut damaged) in &mut conditions.rows {
             let mut states_repeated = states.clone();
 
             for _ in 1..5 {
@@ -232,7 +232,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -280,7 +280,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -288,7 +288,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                6_512_849_198_636u64,
+                6_512_849_198_636_u64,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }

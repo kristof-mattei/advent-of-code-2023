@@ -4,7 +4,7 @@ use std::num::NonZeroUsize;
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::HashSet;
 
-advent_of_code_2023::solution!(3503, 584_211_423_220_706usize);
+advent_of_code_2023::solution!(3503, 584_211_423_220_706_usize);
 enum Tile {
     Rock,
     Garden(bool),
@@ -12,7 +12,7 @@ enum Tile {
 
 impl std::fmt::Display for Tile {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
+        match *self {
             Tile::Rock => write!(f, "#"),
             Tile::Garden(false) => write!(f, "."),
             Tile::Garden(true) => write!(f, "O"),
@@ -53,7 +53,7 @@ fn bfs(grid: &[Vec<Tile>], start: (isize, isize), steps: NonZeroUsize) -> usize 
 
     let even_odd = steps.get() % 2;
 
-    let mut dq = VecDeque::from_iter([(start, 0usize)]);
+    let mut dq = VecDeque::from_iter([(start, 0_usize)]);
 
     while let Some((coord, steps_traveled)) = dq.pop_front() {
         if steps_traveled > steps.get() || visited.contains(&coord) {
@@ -132,7 +132,7 @@ impl Parts for Solution {
             .enumerate()
             .find_map(|(r, row)| {
                 row.iter().enumerate().find_map(|(c, t)| {
-                    if matches!(t, Tile::Garden(true)) {
+                    if matches!(*t, Tile::Garden(true)) {
                         Some((r, c))
                     } else {
                         None
@@ -157,7 +157,7 @@ impl Parts for Solution {
             .enumerate()
             .find_map(|(r, row)| {
                 row.iter().enumerate().find_map(|(c, t)| {
-                    if matches!(t, Tile::Garden(true)) {
+                    if matches!(*t, Tile::Garden(true)) {
                         Some((r, c))
                     } else {
                         None
@@ -173,7 +173,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -191,7 +191,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -199,7 +199,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                584_211_423_220_706usize,
+                584_211_423_220_706_usize,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }
