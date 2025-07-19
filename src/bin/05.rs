@@ -241,15 +241,16 @@ mod parse {
     }
 
     #[derive(Debug, PartialEq, Eq)]
-    pub(super) struct IndividualSeeds(pub(super) Vec<u64>);
+    pub(super) struct IndividualSeeds(pub Vec<u64>);
+
     impl IntoSeed for IndividualSeeds {
-        fn into(raw_seed: Vec<u64>) -> Self {
-            Self(raw_seed)
+        fn into(raw_seeds: Vec<u64>) -> Self {
+            Self(raw_seeds)
         }
     }
 
     #[derive(Debug, PartialEq, Eq)]
-    pub(super) struct RangeOfSeeds(pub(super) Vec<Range<u64>>);
+    pub(super) struct RangeOfSeeds(pub Vec<Range<u64>>);
 
     impl IntoSeed for RangeOfSeeds {
         fn into(raw_seeds: Vec<u64>) -> Self {
@@ -279,7 +280,7 @@ mod parse {
             .collect::<Vec<&str>>()
             .split(|line| line.is_empty())
         {
-            assert!(!group.is_empty());
+            assert!(!group.is_empty(), "Group cannot be empty");
 
             match group[0] {
                 "seed-to-soil map:" => seed_to_soil_map = process_map(&group[1..]).into(),
@@ -336,7 +337,7 @@ mod parse {
                 .map(|s| s.parse().expect("Invalid number"))
                 .collect::<Vec<u64>>();
 
-            assert!(x.len() == 3);
+            assert!(x.len() == 3, "Invalid input");
 
             almanac_map.push((x[0], x[1], x[2]));
         }
@@ -392,7 +393,7 @@ impl Parts for Solution {
 mod test {
 
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::parse::{IndividualSeeds, parse_lines};
@@ -471,7 +472,7 @@ mod test {
     mod part_2 {
         use std::ops::Range;
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use super::super::Solution;

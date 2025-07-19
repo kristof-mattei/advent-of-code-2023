@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
 
-advent_of_code_2023::solution!(19667, 19_185_263_738_117usize);
+advent_of_code_2023::solution!(19667, 19_185_263_738_117_usize);
 
 enum Direction {
     Left = 0,
@@ -89,7 +89,7 @@ fn follow_directions(network: &Network) -> usize {
 
         let next = network.nodes.get(current).expect("No next?");
 
-        match direction {
+        match *direction {
             Direction::Left => current = &next.0,
             Direction::Right => current = &next.1,
         }
@@ -108,8 +108,8 @@ where
         let next = network.nodes.get(current).expect("No next?");
 
         match network.directions.get(steps % network.directions.len()) {
-            Some(Direction::Left) => current = &next.0,
-            Some(Direction::Right) => current = &next.1,
+            Some(&Direction::Left) => current = &next.0,
+            Some(&Direction::Right) => current = &next.1,
             None => panic!("Not found"),
         }
 
@@ -165,7 +165,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -194,7 +194,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -202,7 +202,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                19_185_263_738_117usize,
+                19_185_263_738_117_usize,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }

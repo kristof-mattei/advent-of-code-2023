@@ -3,6 +3,7 @@ use advent_of_code_2023::shared::{PartSolution, Parts};
 advent_of_code_2023::solution!(6902, 7697);
 
 #[derive(Clone, Copy)]
+#[repr(usize)]
 enum Traveling {
     Up,
     Right,
@@ -15,6 +16,7 @@ struct Tile {
     mirror: Mirror,
 }
 
+#[derive(Clone, Copy)]
 enum Mirror {
     Dash,
     Pipe,
@@ -25,7 +27,7 @@ enum Mirror {
 
 impl std::fmt::Display for Mirror {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let c = match self {
+        let c = match *self {
             Mirror::Dash => '-',
             Mirror::Pipe => '|',
             Mirror::Slash => '/',
@@ -72,7 +74,7 @@ fn apply_direction_to_coordinates(
 
 impl Tile {
     fn get_next_direction(&self, energy_is_traveling: Traveling) -> Beam {
-        match (energy_is_traveling, &self.mirror) {
+        match (energy_is_traveling, self.mirror) {
             (Traveling::Up, Mirror::Slash)
             | (Traveling::Right, Mirror::Dash | Mirror::Ground)
             | (Traveling::Down, Mirror::BackwardsSlash) => Beam::Single(Traveling::Right),
@@ -97,18 +99,16 @@ impl Tile {
     fn set_seen_or_set(&mut self, from: Traveling) -> bool {
         // for Dash & Pipe we can reduce the work by treating opposite directions as the same
         // as they have the same outcome
-        let from = match (&self.mirror, from) {
+        let from = match (self.mirror, from) {
             (Mirror::Dash, Traveling::Up | Traveling::Down) => Traveling::Up,
             (Mirror::Pipe, Traveling::Left | Traveling::Right) => Traveling::Left,
             (_, t) => t,
         };
 
-        if self.traveled_from[from as usize] {
-            true
-        } else {
-            self.traveled_from[from as usize] = true;
-            false
-        }
+        #[expect(clippy::as_conversions, reason = "Traveling is repr usize")]
+        let from = from as usize;
+
+        std::mem::replace(&mut self.traveled_from[from], true)
     }
 
     fn reset(&mut self) {
@@ -291,7 +291,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -309,7 +309,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

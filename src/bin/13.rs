@@ -22,7 +22,7 @@ impl TryFrom<char> for What {
 
 impl std::fmt::Display for What {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let c = match self {
+        let c = match *self {
             What::Ash => '.',
             What::Rock => '#',
         };
@@ -107,7 +107,7 @@ fn compare_rows_r_allow_1(
     let differences = pattern[index1]
         .iter()
         .zip(pattern[index2].iter())
-        .filter(|(l, r)| l != r)
+        .filter(|&(l, r)| l != r)
         .count();
 
     if differences + differences_used <= 1 {
@@ -138,7 +138,7 @@ fn compare_columns_r_allow_1(
         .iter()
         .map(|row| &row[index1])
         .zip(pattern.iter().map(|row| &row[index2]))
-        .filter(|(l, r)| l != r)
+        .filter(|&(l, r)| l != r)
         .count();
 
     if differences + differences_used <= 1 {
@@ -239,7 +239,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -257,7 +257,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

@@ -2,7 +2,7 @@ use advent_of_code_2023::shared::{PartSolution, Parts};
 
 advent_of_code_2023::solution!(6956, 455);
 
-#[derive(PartialEq, Eq)]
+#[derive(Copy, Clone, PartialEq, Eq)]
 enum Direction {
     Up,
     Right,
@@ -102,20 +102,25 @@ fn find_start_piece(map: &[Vec<char>]) -> ((usize, usize), Tile) {
 }
 
 fn get_any_start_direction(map: &[Vec<Tile>], start: &(usize, usize)) -> Direction {
-    match &map[start.0][start.1] {
+    match map[start.0][start.1] {
         Tile::Vertical(true) | Tile::SouthEast(true) => Direction::Up,
         Tile::Horizontal(true) | Tile::SouthWest(true) => Direction::Right,
         Tile::NorthWest(true) => Direction::Down,
         Tile::NorthEast(true) => Direction::Left,
         Tile::Ground => panic!("We never start on ground"),
-        _ => panic!("Start tile should be part of the loop"),
+        Tile::Vertical(_)
+        | Tile::Horizontal(_)
+        | Tile::NorthEast(_)
+        | Tile::NorthWest(_)
+        | Tile::SouthWest(_)
+        | Tile::SouthEast(_) => panic!("Start tile should be part of the loop"),
     }
 }
 
-fn next_direction(map: &[Vec<Tile>], from: &Direction, start: &(usize, usize)) -> Direction {
+fn next_direction(map: &[Vec<Tile>], from: Direction, start: &(usize, usize)) -> Direction {
     let current = &map[start.0][start.1];
 
-    match (from, current) {
+    match (from, *current) {
         (Direction::Up, Tile::Vertical(true))
         | (Direction::Right, Tile::NorthWest(true))
         | (Direction::Left, Tile::NorthEast(true)) => Direction::Up,
@@ -133,19 +138,18 @@ fn next_direction(map: &[Vec<Tile>], from: &Direction, start: &(usize, usize)) -
 }
 
 fn next_coordinates(
-    next: &Direction,
-    (current_row_index, current_column_index): &(usize, usize),
+    next: Direction,
+    &(current_row_index, current_column_index): &(usize, usize),
 ) -> (usize, usize) {
     match next {
-        Direction::Up => (current_row_index - 1, *current_column_index),
-        Direction::Right => (*current_row_index, current_column_index + 1),
-        Direction::Down => (current_row_index + 1, *current_column_index),
-        Direction::Left => (*current_row_index, current_column_index - 1),
+        Direction::Up => (current_row_index - 1, current_column_index),
+        Direction::Right => (current_row_index, current_column_index + 1),
+        Direction::Down => (current_row_index + 1, current_column_index),
+        Direction::Left => (current_row_index, current_column_index - 1),
     }
 }
 
 fn mark_coordinates_as_part_of_loop(map: &mut [Vec<Tile>], coordinates: (usize, usize)) {
-    #[expect(clippy::indexing_slicing)]
     let new_tile = match map[coordinates.0][coordinates.1] {
         Tile::Vertical(_) => Tile::Vertical(true),
         Tile::Horizontal(_) => Tile::Horizontal(true),
@@ -171,13 +175,13 @@ fn mark_loop(map: &mut [Vec<Tile>], start: (usize, usize)) -> (Vec<(usize, usize
     mark_coordinates_as_part_of_loop(map, start);
 
     loop {
-        let next = next_direction(map, &from, &current);
+        let next = next_direction(map, from, &current);
 
         if next != from {
             coordinates.push(current);
         }
 
-        let next_coordinates = next_coordinates(&next, &current);
+        let next_coordinates = next_coordinates(next, &current);
 
         mark_coordinates_as_part_of_loop(map, next_coordinates);
 
@@ -247,7 +251,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -292,7 +296,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};

@@ -1,4 +1,4 @@
-use std::convert::Into;
+use std::convert::Into as _;
 
 use advent_of_code_2023::shared::{PartSolution, Parts};
 
@@ -56,9 +56,11 @@ impl Parts for Solution {
     }
 }
 
+#[expect(clippy::allow_attributes_without_reason)]
 #[expect(clippy::cast_precision_loss)]
 #[expect(clippy::cast_possible_truncation)]
 #[expect(clippy::cast_sign_loss)]
+#[expect(clippy::as_conversions)]
 fn calculate_possibilities(time: usize, distance: usize) -> usize {
     // solve the quadratic formula of
 
@@ -110,7 +112,7 @@ fn calculate_possibilities(time: usize, distance: usize) -> usize {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -127,7 +129,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

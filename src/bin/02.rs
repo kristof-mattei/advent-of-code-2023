@@ -105,26 +105,6 @@ impl Game {
     }
 }
 
-#[expect(dead_code)]
-enum Cube {
-    Blue(u32),
-    Green(u32),
-    Red(u32),
-}
-
-impl TryFrom<(u32, &str)> for Cube {
-    type Error = String;
-
-    fn try_from((amount, color): (u32, &str)) -> Result<Self, Self::Error> {
-        match color {
-            "blue" => Ok(Cube::Blue(amount)),
-            "green" => Ok(Cube::Green(amount)),
-            "red" => Ok(Cube::Red(amount)),
-            _ => Err(format!("Invalid color: {}", color)),
-        }
-    }
-}
-
 fn naive_parse_line(line: &str) -> Game {
     let (left, right) = line.split_once(':').expect("Invalid game");
 
@@ -176,7 +156,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -193,7 +173,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};

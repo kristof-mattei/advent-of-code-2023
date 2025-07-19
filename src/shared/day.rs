@@ -9,8 +9,8 @@ use std::str::FromStr;
 ///
 /// ```
 /// # use advent_of_code_2023::shared::day::Day;
-/// const day: Day = Day::try_new(8).unwrap();
-/// assert_eq!(day.to_string(), "08")
+/// const DAY: Day = Day::try_new(8).unwrap();
+/// assert_eq!(DAY.to_string(), "08")
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct Day(u8);
@@ -65,15 +65,15 @@ impl FromStr for Day {
     type Err = DayFromStrError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let day = s.parse().map_err(|_| DayFromStrError)?;
-        Self::try_new(day).ok_or(DayFromStrError)
+        let day = s.parse().map_err(|_| DayFromStrError {})?;
+        Self::try_new(day).ok_or(DayFromStrError {})
     }
 }
 
 /// An error which can be returned when parsing a [`Day`].
-#[expect(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions, reason = "Name clarity")]
 #[derive(Debug)]
-pub struct DayFromStrError;
+pub struct DayFromStrError {}
 
 impl Error for DayFromStrError {}
 

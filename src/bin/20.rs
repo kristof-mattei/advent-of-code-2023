@@ -3,7 +3,7 @@ use std::collections::VecDeque;
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::HashMap;
 
-advent_of_code_2023::solution!(763_500_168, 207_652_583_562_007usize);
+advent_of_code_2023::solution!(763_500_168, 207_652_583_562_007_usize);
 
 const BROADCASTER: &str = "broadcaster";
 
@@ -59,7 +59,7 @@ trait TModule {
 
 impl std::fmt::Display for Pulse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let s = match self {
+        let s = match *self {
             Pulse::High => "high",
             Pulse::Low => "low",
         };
@@ -214,8 +214,8 @@ fn parse_input(input: &str) -> HashMap<String, (Kind, Vec<String>)> {
 
     let mut conjunction_module_names = modules
         .iter()
-        .filter_map(|(key, (kind, _))| {
-            if matches!(kind, Kind::Conjunction(_)) {
+        .filter_map(|(key, &(ref kind, _))| {
+            if matches!(kind, &Kind::Conjunction(_)) {
                 Some((key.clone(), vec![]))
             } else {
                 None
@@ -224,7 +224,7 @@ fn parse_input(input: &str) -> HashMap<String, (Kind, Vec<String>)> {
         .collect::<HashMap<_, _>>();
 
     for (source, module) in &modules {
-        let (_, destinations) = module;
+        let &(_, ref destinations) = module;
 
         for destination in destinations {
             if let Some(d) = conjunction_module_names.get_mut(destination) {
@@ -238,7 +238,7 @@ fn parse_input(input: &str) -> HashMap<String, (Kind, Vec<String>)> {
     for (conjunction_module_name, sources) in conjunction_module_names {
         let module = modules.get_mut(&conjunction_module_name).unwrap();
 
-        if let (Kind::Conjunction(conjunction), _) = module {
+        if let &mut (Kind::Conjunction(ref mut conjunction), _) = module {
             for source in sources {
                 conjunction.sources.insert(source, Pulse::Low);
             }
@@ -257,19 +257,19 @@ fn handle_signals(
     let mut signals: Vec<(String, String, Pulse)> = vec![];
 
     match modules.get_mut(handler_name) {
-        Some((Kind::FlipFlop(ff), destinations)) => {
+        Some(&mut (Kind::FlipFlop(ref mut ff), ref destinations)) => {
             for (new_destination, new_pulse) in ff.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
-        Some((Kind::Conjunction(c), destinations)) => {
+        Some(&mut (Kind::Conjunction(ref mut c), ref destinations)) => {
             for (new_destination, new_pulse) in c.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
-        Some((Kind::Broadcaster(b), destinations)) => {
+        Some(&mut (Kind::Broadcaster(ref mut b), ref destinations)) => {
             for (new_destination, new_pulse) in b.receive(source, destinations, pulse) {
-                signals.push((handler_name.to_string(), new_destination, new_pulse));
+                signals.push((handler_name.to_owned(), new_destination, new_pulse));
             }
         },
         None => {},
@@ -281,7 +281,7 @@ fn handle_signals(
 fn press_button_1000(mut modules: HashMap<String, (Kind, Vec<String>)>) -> usize {
     let (mut low, mut high) = (0, 0);
 
-    for _ in 1usize..=1000 {
+    for _ in 1_usize..=1000 {
         let mut signals = VecDeque::from_iter([(
             String::from("button"),
             String::from(BROADCASTER),
@@ -309,7 +309,7 @@ fn press_button_1000(mut modules: HashMap<String, (Kind, Vec<String>)>) -> usize
 fn press_button_forever(mut modules: HashMap<String, (Kind, Vec<String>)>) -> usize {
     let rx_feeder = modules
         .iter()
-        .find_map(|(n, (_, d))| {
+        .find_map(|(n, &(_, ref d))| {
             if d.contains(&"rx".into()) {
                 Some(n.clone())
             } else {
@@ -320,9 +320,9 @@ fn press_button_forever(mut modules: HashMap<String, (Kind, Vec<String>)>) -> us
 
     let mut visited = modules
         .iter()
-        .filter_map(|(n, (_, d))| {
+        .filter_map(|(n, &(_, ref d))| {
             if d.contains(&rx_feeder) {
-                Some((n.clone(), 0usize))
+                Some((n.clone(), 0_usize))
             } else {
                 None
             }
@@ -385,7 +385,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
         use crate::{DAY, Solution};
@@ -417,7 +417,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -425,7 +425,7 @@ mod test {
         #[test]
         fn outcome() {
             assert_eq!(
-                207_652_583_562_007usize,
+                207_652_583_562_007_usize,
                 (Solution {}).part_2(&read_file("inputs", &DAY))
             );
         }

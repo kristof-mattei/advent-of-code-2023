@@ -31,6 +31,10 @@ fn parse_input_split(input: &str) -> Vec<(Label, Option<FocalLength>)> {
 }
 
 fn hash_single(s: &str) -> usize {
+    #[expect(
+        clippy::as_conversions,
+        reason = "ASCII strings only, always in range of usize"
+    )]
     s.chars().map(|c| c as usize).fold(0, |mut acc, curr| {
         acc += curr;
         acc *= 17;
@@ -86,28 +90,28 @@ fn put_lenses_in_boxes(parsed: &[(Label, Option<FocalLength>)]) -> usize {
 
     let mut boxes = with_hasher;
 
-    for (label, lens) in parsed {
+    for &(ref label, ref lens) in parsed {
         match (boxes.entry(label.get_box()), lens) {
-            (Entry::Occupied(mut o), Some(lens)) => {
+            (Entry::Occupied(mut o), &Some(ref lens)) => {
                 // box exists, and we're adding / overriding a lens
-                let (lens_box, last_entry) = o.get_mut();
+                let &mut (ref mut lens_box, ref mut last_entry) = o.get_mut();
 
-                if let Some((l, _)) = lens_box.get_mut(&label.get_label()) {
+                if let Some(&mut (ref mut l, _)) = lens_box.get_mut(&label.get_label()) {
                     *l = *lens;
                 } else {
                     lens_box.insert(label.get_label(), (*lens, *last_entry + 1));
                     *last_entry += 1;
                 }
             },
-            (Entry::Occupied(mut o), None) => {
+            (Entry::Occupied(mut o), &None) => {
                 // box exist, we're removing the lens with label `label`
                 o.get_mut().0.remove(&label.get_label());
             },
-            (Entry::Vacant(v), Some(lens)) => {
+            (Entry::Vacant(v), &Some(ref lens)) => {
                 // box empty, add lens
                 v.insert(([(label.get_label(), (*lens, 0))].into(), 0));
             },
-            (Entry::Vacant(_), None) => {},
+            (Entry::Vacant(_), &None) => {},
         }
     }
 
@@ -122,12 +126,12 @@ fn put_lenses_in_boxes(parsed: &[(Label, Option<FocalLength>)]) -> usize {
 
         let mut lenses = lenses
             .iter()
-            .map(|(_, (lens, insertion_order))| (*lens, *insertion_order))
+            .map(|(_, &(ref lens, ref insertion_order))| (*lens, *insertion_order))
             .collect::<Vec<(FocalLength, usize)>>();
 
         lenses.sort_by_key(|l| l.1);
 
-        for (order, (focal_length, _)) in lenses.iter().enumerate() {
+        for (order, &(ref focal_length, _)) in lenses.iter().enumerate() {
             let slot_id = order + 1;
 
             total += box_id * slot_id * focal_length.get_length();
@@ -154,7 +158,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -177,7 +181,7 @@ mod test {
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution, hash_single};

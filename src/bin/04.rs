@@ -65,7 +65,7 @@ impl Game {
             .try_into()
             .expect("Intersection too large");
 
-        intersection.checked_sub(1).map_or(0, |i| 2usize.pow(i))
+        intersection.checked_sub(1).map_or(0, |i| 2_usize.pow(i))
     }
 
     fn get_intersection_count(&self) -> usize {
@@ -150,7 +150,7 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
@@ -167,7 +167,7 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts;
+        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
 
         use crate::{DAY, Solution};
