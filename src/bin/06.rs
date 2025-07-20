@@ -60,7 +60,6 @@ impl Parts for Solution {
 #[expect(clippy::cast_precision_loss)]
 #[expect(clippy::cast_possible_truncation)]
 #[expect(clippy::cast_sign_loss)]
-#[expect(clippy::as_conversions)]
 fn calculate_possibilities(time: usize, distance: usize) -> usize {
     // solve the quadratic formula of
 
