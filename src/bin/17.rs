@@ -135,7 +135,6 @@ fn distance(map: &[Vec<Block>], _current: Coordinates, neighbor: Coordinates) ->
 
 fn heuristic(map: &[Vec<Block>], current: Coordinates) -> u32 {
     #![expect(
-        clippy::as_conversions,
         clippy::cast_possible_truncation,
         reason = "We don't exceed u32 boundaries"
     )]

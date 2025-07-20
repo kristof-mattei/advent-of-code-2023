@@ -31,10 +31,6 @@ fn parse_input_split(input: &str) -> Vec<(Label, Option<FocalLength>)> {
 }
 
 fn hash_single(s: &str) -> usize {
-    #[expect(
-        clippy::as_conversions,
-        reason = "ASCII strings only, always in range of usize"
-    )]
     s.chars().map(|c| c as usize).fold(0, |mut acc, curr| {
         acc += curr;
         acc *= 17;

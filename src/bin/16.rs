@@ -105,7 +105,6 @@ impl Tile {
             (_, t) => t,
         };
 
-        #[expect(clippy::as_conversions, reason = "Traveling is repr usize")]
         let from = from as usize;
 
         std::mem::replace(&mut self.traveled_from[from], true)
