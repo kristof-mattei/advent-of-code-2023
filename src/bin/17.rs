@@ -80,10 +80,10 @@ fn get_neighbor_directions<T>(city_map: &[Vec<T>], node: &Node) -> Vec<(Coordina
     let mut neighbors = Vec::with_capacity(3);
 
     for directions in DIRECTIONS {
-        if let Some(new_row_column_index) = directions.apply(city_map, &node.row_column_index) {
-            if new_row_column_index != node.previous {
-                neighbors.push((new_row_column_index, directions));
-            }
+        if let Some(new_row_column_index) = directions.apply(city_map, &node.row_column_index)
+            && new_row_column_index != node.previous
+        {
+            neighbors.push((new_row_column_index, directions));
         }
     }
 
