@@ -88,17 +88,17 @@ fn get_numbers_around(schematic: &Schematic, row_index: usize, column_index: usi
         (column_index + 1 < schematic[row_index].len()).then_some(column_index + 1);
 
     // left
-    if let Some(left_index) = column_index_left {
-        if let Some(n) = find_number_at(&schematic[row_index], left_index) {
-            numbers_around.push(n);
-        }
+    if let Some(left_index) = column_index_left
+        && let Some(n) = find_number_at(&schematic[row_index], left_index)
+    {
+        numbers_around.push(n);
     }
 
     // right
-    if let Some(right_index) = column_index_right {
-        if let Some(n) = find_number_at(&schematic[row_index], right_index) {
-            numbers_around.push(n);
-        }
+    if let Some(right_index) = column_index_right
+        && let Some(n) = find_number_at(&schematic[row_index], right_index)
+    {
+        numbers_around.push(n);
     }
 
     if let Some(row) = row_above {
@@ -108,17 +108,17 @@ fn get_numbers_around(schematic: &Schematic, row_index: usize, column_index: usi
             numbers_around.push(n);
         } else {
             // left-top
-            if let Some(left_index) = column_index_left {
-                if let Some(n) = find_number_at(row, left_index) {
-                    numbers_around.push(n);
-                }
+            if let Some(left_index) = column_index_left
+                && let Some(n) = find_number_at(row, left_index)
+            {
+                numbers_around.push(n);
             }
 
             // right-top
-            if let Some(right_index) = column_index_right {
-                if let Some(n) = find_number_at(row, right_index) {
-                    numbers_around.push(n);
-                }
+            if let Some(right_index) = column_index_right
+                && let Some(n) = find_number_at(row, right_index)
+            {
+                numbers_around.push(n);
             }
         }
     }
@@ -128,17 +128,17 @@ fn get_numbers_around(schematic: &Schematic, row_index: usize, column_index: usi
             numbers_around.push(n);
         } else {
             // left-bottom
-            if let Some(left_index) = column_index_left {
-                if let Some(n) = find_number_at(row, left_index) {
-                    numbers_around.push(n);
-                }
+            if let Some(left_index) = column_index_left
+                && let Some(n) = find_number_at(row, left_index)
+            {
+                numbers_around.push(n);
             }
 
             // right-bottom
-            if let Some(right_index) = column_index_right {
-                if let Some(n) = find_number_at(row, right_index) {
-                    numbers_around.push(n);
-                }
+            if let Some(right_index) = column_index_right
+                && let Some(n) = find_number_at(row, right_index)
+            {
+                numbers_around.push(n);
             }
         }
     }

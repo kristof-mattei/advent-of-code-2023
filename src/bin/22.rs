@@ -136,24 +136,24 @@ fn get_brick_dependencies(
         for x in brick.start.x..=brick.end.x {
             for y in brick.start.y..=brick.end.y {
                 for z in brick.start.z..=brick.end.z {
-                    if let Some(other_brick) = settled_map.get(&(x, y, z + 1)) {
-                        if other_brick != brick {
-                            above
-                                .entry(*brick)
-                                .and_modify(|v| {
-                                    v.insert(*other_brick);
-                                })
-                                .or_insert_with(|| {
-                                    ([*other_brick]).into_iter().collect::<HashSet<_>>()
-                                });
+                    if let Some(other_brick) = settled_map.get(&(x, y, z + 1))
+                        && other_brick != brick
+                    {
+                        above
+                            .entry(*brick)
+                            .and_modify(|v| {
+                                v.insert(*other_brick);
+                            })
+                            .or_insert_with(|| {
+                                ([*other_brick]).into_iter().collect::<HashSet<_>>()
+                            });
 
-                            below
-                                .entry(*other_brick)
-                                .and_modify(|v| {
-                                    v.insert(*brick);
-                                })
-                                .or_insert_with(|| ([*brick]).into_iter().collect::<HashSet<_>>());
-                        }
+                        below
+                            .entry(*other_brick)
+                            .and_modify(|v| {
+                                v.insert(*brick);
+                            })
+                            .or_insert_with(|| ([*brick]).into_iter().collect::<HashSet<_>>());
                     }
                 }
             }
