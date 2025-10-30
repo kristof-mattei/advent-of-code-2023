@@ -37,8 +37,8 @@ fn parse_input(input: &str) -> Galaxy {
 
     let rows_with_galaxies: Vec<usize> = (0..rows)
         .fold(vec![false; map.len()], |mut acc, row_index| {
-            for column_index in 0..columns {
-                if map[row_index][column_index] == What::Galaxy {
+            for cell in map[row_index].iter().take(columns) {
+                if matches!(cell, What::Galaxy) {
                     acc[row_index] = true;
                     break;
                 }
