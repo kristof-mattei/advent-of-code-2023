@@ -12,7 +12,7 @@ repository = "https://github.com/kristof-mattei/advent-of-code-2023"
 include = ["src/**", "/LICENSE", "/LICENSE-*"]
 
 [dependencies]
-hashbrown = { version = "0.16.0", default-features = false, features = [
+hashbrown = { version = "0.16.1", default-features = false, features = [
     "default-hasher",
     "inline-more",
     "equivalent",
