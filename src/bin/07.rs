@@ -212,22 +212,19 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::{Card, DAY, Hand, Solution, Type, parse_game, parse_hands};
+        use crate::{Card, DAY, Hand, Type, parse_game, parse_hands};
 
         #[test]
         fn outcome() {
-            assert_eq!(
-                248_559_379,
-                (Solution {}).part_1(&read_file("inputs", &DAY))
-            );
+            test_part_1!(248_559_379);
         }
 
         #[test]
         fn example() {
-            assert_eq!(6440, (Solution {}).part_1(&read_file("examples", &DAY)));
+            test_example_part_1!(6440);
         }
 
         #[test]
@@ -418,22 +415,19 @@ mod test {
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::{DAY, Hand, Solution, Type, parse_game, parse_game_jack_is_wildcard};
+        use advent_of_code_2023::{test_example_part_2, test_part_2};
+
+        use crate::{DAY, Hand, Type, parse_game, parse_game_jack_is_wildcard};
 
         #[test]
         fn outcome() {
-            assert_eq!(
-                249_631_254,
-                (Solution {}).part_2(&read_file("inputs", &DAY))
-            );
+            test_part_2!(249_631_254);
         }
 
         #[test]
         fn example() {
-            assert_eq!(5905, (Solution {}).part_2(&read_file("examples", &DAY)));
+            test_example_part_2!(5905);
         }
 
         #[test]

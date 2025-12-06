@@ -18,7 +18,7 @@ mod test {
         use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::{PartSolution, Parts};
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {
@@ -38,11 +38,10 @@ mod test {
     }
 
     mod part_2 {
-
         use advent_of_code_2023::shared::solution::read_file;
         use advent_of_code_2023::shared::{PartSolution, Parts};
 
-        use crate::{Solution, DAY};
+        use crate::{DAY, Solution};
 
         #[test]
         fn outcome() {

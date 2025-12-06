@@ -154,14 +154,14 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::{DAY, Galaxy, Solution, parse_input};
+        use crate::{DAY, Galaxy, parse_input};
 
         #[test]
         fn outcome() {
-            assert_eq!(10_276_166, (Solution {}).part_1(&read_file("inputs", &DAY)));
+            test_part_1!(10_276_166);
         }
 
         #[test]
@@ -176,23 +176,20 @@ mod test {
 
         #[test]
         fn example() {
-            assert_eq!(374, (Solution {}).part_1(&read_file("examples", &DAY)));
+            test_example_part_1!(374);
         }
     }
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::test_part_2;
 
-        use crate::{DAY, Solution, parse_input, sum_lengths_between_galaxies};
+        use crate::{DAY, parse_input, sum_lengths_between_galaxies};
 
         #[test]
         fn outcome() {
-            assert_eq!(
-                598_693_078_798_usize,
-                (Solution {}).part_2(&read_file("inputs", &DAY))
-            );
+            test_part_2!(598_693_078_798_usize);
         }
 
         #[test]
