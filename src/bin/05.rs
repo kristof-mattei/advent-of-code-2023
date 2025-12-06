@@ -393,15 +393,15 @@ impl Parts for Solution {
 mod test {
 
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::test_part_1;
 
         use crate::parse::{IndividualSeeds, parse_lines};
-        use crate::{Almanac, DAY, Solution};
+        use crate::{Almanac, DAY};
 
         #[test]
         fn outcome() {
-            assert_eq!(309_796_150, Solution {}.part_1(&read_file("inputs", &DAY)));
+            test_part_1!(309_796_150);
         }
 
         #[test]
@@ -472,16 +472,15 @@ mod test {
     mod part_2 {
         use std::ops::Range;
 
-        use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use super::super::Solution;
         use crate::parse::{RangeOfSeeds, parse_lines};
         use crate::{AlmanacMap, DAY};
 
         #[test]
         fn outcome() {
-            assert_eq!(50_716_416, (Solution {}).part_2(&read_file("inputs", &DAY)));
+            test_part_2!(50_716_416);
         }
 
         #[test]
@@ -529,7 +528,7 @@ mod test {
 
         #[test]
         fn example_lowest_in_original() {
-            assert_eq!(55, Solution {}.part_2(&read_file("examples", &DAY)));
+            test_example_part_2!(55);
         }
     }
 }

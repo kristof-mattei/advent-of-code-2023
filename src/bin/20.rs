@@ -385,49 +385,36 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
-        use crate::{DAY, Solution};
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
+
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(
-                763_500_168,
-                (Solution {}).part_1(&read_file("inputs", &DAY))
-            );
+            test_part_1!(763_500_168);
         }
 
         #[test]
         fn example_1() {
-            assert_eq!(
-                32_000_000,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 1))
-            );
+            test_example_part_1!(32_000_000, 1);
         }
 
         #[test]
         fn example_2() {
-            assert_eq!(
-                11_687_500,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 2))
-            );
+            test_example_part_1!(11_687_500, 2);
         }
     }
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::test_part_2;
 
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(
-                207_652_583_562_007_usize,
-                (Solution {}).part_2(&read_file("inputs", &DAY))
-            );
+            test_part_2!(207_652_583_562_007_usize);
         }
     }
 }

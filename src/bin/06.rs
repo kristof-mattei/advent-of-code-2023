@@ -111,36 +111,34 @@ fn calculate_possibilities(time: usize, distance: usize) -> usize {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(345_015, (Solution {}).part_1(&read_file("inputs", &DAY)));
+            test_part_1!(345_015);
         }
 
         #[test]
         fn example() {
-            assert_eq!(288, (Solution {}).part_1(&read_file("examples", &DAY)));
+            test_example_part_1!(288);
         }
     }
 
     mod part_2 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(42_588_603, (Solution {}).part_2(&read_file("inputs", &DAY)));
+            test_part_2!(42_588_603);
         }
 
         #[test]
         fn example() {
-            assert_eq!(71503, (Solution {}).part_2(&read_file("examples", &DAY)));
+            test_example_part_2!(71503);
         }
     }
 }

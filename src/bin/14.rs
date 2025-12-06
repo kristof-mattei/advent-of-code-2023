@@ -271,37 +271,34 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(110_677, (Solution {}).part_1(&read_file("inputs", &DAY)));
+            test_part_1!(110_677);
         }
 
         #[test]
         fn example() {
-            assert_eq!(136, (Solution {}).part_1(&read_file("examples", &DAY)));
+            test_example_part_1!(136);
         }
     }
 
     mod part_2 {
+        use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::read_file;
-
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(90551, (Solution {}).part_2(&read_file("inputs", &DAY)));
+            test_part_2!(90551);
         }
 
         #[test]
         fn example() {
-            assert_eq!(64, (Solution {}).part_2(&read_file("examples", &DAY)));
+            test_example_part_2!(64);
         }
     }
 }

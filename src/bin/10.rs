@@ -251,83 +251,61 @@ impl Parts for Solution {
 #[cfg(test)]
 mod test {
     mod part_1 {
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
 
-        use crate::{DAY, Solution};
+        use advent_of_code_2023::{test_example_part_1, test_part_1};
+
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(6956, (Solution {}).part_1(&read_file("inputs", &DAY)));
+            test_part_1!(6956);
         }
 
         #[test]
         fn example_1() {
-            assert_eq!(
-                4,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 1))
-            );
+            test_example_part_1!(4, 1);
         }
 
         #[test]
         fn example_2() {
-            assert_eq!(
-                4,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 2))
-            );
+            test_example_part_1!(4, 2);
         }
 
         #[test]
         fn example_3() {
-            assert_eq!(
-                8,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 3))
-            );
+            test_example_part_1!(8, 3);
         }
 
         #[test]
         fn example_4() {
-            assert_eq!(
-                8,
-                (Solution {}).part_1(&read_file_part("examples", &DAY, 4))
-            );
+            test_example_part_1!(8, 4);
         }
     }
 
     mod part_2 {
 
-        use advent_of_code_2023::shared::Parts as _;
-        use advent_of_code_2023::shared::solution::{read_file, read_file_part};
+        use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use crate::{DAY, Solution};
+        use crate::DAY;
 
         #[test]
         fn outcome() {
-            assert_eq!(455, (Solution {}).part_2(&read_file("inputs", &DAY)));
+            test_part_2!(455);
         }
 
         #[test]
         fn example_1() {
-            assert_eq!(
-                4,
-                (Solution {}).part_2(&read_file_part("examples", &DAY, 5))
-            );
+            test_example_part_2!(4, 5);
         }
 
         #[test]
         fn example_2() {
-            assert_eq!(
-                8,
-                (Solution {}).part_2(&read_file_part("examples", &DAY, 6))
-            );
+            test_example_part_2!(8, 6);
         }
 
         #[test]
         fn example_3() {
-            assert_eq!(
-                10,
-                (Solution {}).part_2(&read_file_part("examples", &DAY, 7))
-            );
+            test_example_part_2!(10, 7);
         }
     }
 }
