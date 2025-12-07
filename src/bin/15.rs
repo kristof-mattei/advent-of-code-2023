@@ -157,7 +157,7 @@ mod test {
         use advent_of_code_2023::shared::Parts as _;
         use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::{DAY, Solution};
+        use crate::Solution;
 
         #[test]
         fn outcome() {
@@ -179,7 +179,7 @@ mod test {
 
         use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use crate::{DAY, hash_single};
+        use crate::hash_single;
 
         #[test]
         fn outcome() {

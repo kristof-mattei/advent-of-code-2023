@@ -120,8 +120,6 @@ mod test {
 
         use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::DAY;
-
         #[test]
         fn outcome() {
             test_part_1!(54159);
@@ -137,7 +135,7 @@ mod test {
 
         use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use crate::{DAY, first_word_digit, last_word_digit};
+        use crate::{first_word_digit, last_word_digit};
 
         #[test]
         fn example() {

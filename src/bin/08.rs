@@ -168,8 +168,6 @@ mod test {
 
         use advent_of_code_2023::{test_example_part_1, test_part_1};
 
-        use crate::DAY;
-
         #[test]
         fn outcome() {
             test_part_1!(19667);
@@ -189,8 +187,6 @@ mod test {
     mod part_2 {
 
         use advent_of_code_2023::{test_example_part_2, test_part_2};
-
-        use crate::DAY;
 
         #[test]
         fn outcome() {
