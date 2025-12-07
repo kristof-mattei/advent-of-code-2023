@@ -1,5 +1,7 @@
 use std::ops::{Deref, DerefMut, Index};
 
+use hashbrown::HashSet;
+
 use super::{
     GridIter, HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection, Neighbors,
 };
@@ -128,8 +130,8 @@ impl<T> Neighbors for InfiniteGrid<T> {
         &self,
         row_index: Self::Index,
         column_index: Self::Index,
-    ) -> Vec<((Self::Index, Self::Index), HorizontalVerticalDirection)> {
-        vec![
+    ) -> HashSet<((Self::Index, Self::Index), HorizontalVerticalDirection)> {
+        [
             (
                 (row_index - 1, column_index),
                 HorizontalVerticalDirection::Up,
@@ -147,17 +149,19 @@ impl<T> Neighbors for InfiniteGrid<T> {
                 HorizontalVerticalDirection::Left,
             ),
         ]
+        .into_iter()
+        .collect()
     }
 
     fn hvd_neighbors(
         &self,
         row_index: Self::Index,
         column_index: Self::Index,
-    ) -> Vec<(
+    ) -> HashSet<(
         (Self::Index, Self::Index),
         HorizontalVerticalDiagonalDirection,
     )> {
-        vec![
+        [
             (
                 (row_index - 1, column_index),
                 HorizontalVerticalDiagonalDirection::Up,
@@ -191,6 +195,8 @@ impl<T> Neighbors for InfiniteGrid<T> {
                 HorizontalVerticalDiagonalDirection::UpLeft,
             ),
         ]
+        .into_iter()
+        .collect()
     }
 }
 
@@ -253,6 +259,8 @@ impl<T> Index<isize> for InfiniteGrid<T> {
 
 #[cfg(test)]
 mod tests {
+    use hashbrown::HashSet;
+
     use crate::shared::grids::infinite_grid::InfiniteGrid;
     use crate::shared::grids::{
         HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection, Neighbors as _,
@@ -279,12 +287,14 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDirection::Up),
             ((1, 2), HorizontalVerticalDirection::Right),
             ((2, 1), HorizontalVerticalDirection::Down),
             ((1, 0), HorizontalVerticalDirection::Left),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hv_neighbors(1, 1));
     }
@@ -297,12 +307,14 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((-1, 0), HorizontalVerticalDirection::Up),
             ((0, 1), HorizontalVerticalDirection::Right),
             ((1, 0), HorizontalVerticalDirection::Down),
             ((0, -1), HorizontalVerticalDirection::Left),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hv_neighbors(0, 0));
     }
@@ -315,7 +327,7 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDiagonalDirection::Up),
             ((0, 2), HorizontalVerticalDiagonalDirection::UpRight),
             ((1, 2), HorizontalVerticalDiagonalDirection::Right),
@@ -324,7 +336,9 @@ mod tests {
             ((2, 0), HorizontalVerticalDiagonalDirection::DownLeft),
             ((1, 0), HorizontalVerticalDiagonalDirection::Left),
             ((0, 0), HorizontalVerticalDiagonalDirection::UpLeft),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hvd_neighbors(1, 1));
     }
@@ -337,7 +351,7 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((-1, 0), HorizontalVerticalDiagonalDirection::Up),
             ((-1, 1), HorizontalVerticalDiagonalDirection::UpRight),
             ((0, 1), HorizontalVerticalDiagonalDirection::Right),
@@ -346,7 +360,9 @@ mod tests {
             ((1, -1), HorizontalVerticalDiagonalDirection::DownLeft),
             ((0, -1), HorizontalVerticalDiagonalDirection::Left),
             ((-1, -1), HorizontalVerticalDiagonalDirection::UpLeft),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hvd_neighbors(0, 0));
     }
