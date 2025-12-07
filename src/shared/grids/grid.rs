@@ -1,5 +1,7 @@
 use std::ops::{Deref, DerefMut, Index, IndexMut};
 
+use hashbrown::HashSet;
+
 use super::{
     GridIter, HorizontalVerticalDiagonalDirection, HorizontalVerticalDiagonalNeighbors,
     HorizontalVerticalDirection, HorizontalVerticalNeighbors, Neighbors,
@@ -123,7 +125,7 @@ impl<T> Neighbors for Grid<T> {
         row_index: Self::Index,
         column_index: Self::Index,
     ) -> HorizontalVerticalNeighbors<Self::Index> {
-        let mut neighbors = vec![];
+        let mut neighbors = HashSet::new();
 
         let up = row_index.checked_sub(1);
         let down = {
@@ -140,19 +142,19 @@ impl<T> Neighbors for Grid<T> {
         };
 
         if let Some(up) = up {
-            neighbors.push(((up, column_index), HorizontalVerticalDirection::Up));
-        }
-
-        if let Some(right) = right {
-            neighbors.push(((row_index, right), HorizontalVerticalDirection::Right));
-        }
-
-        if let Some(down) = down {
-            neighbors.push(((down, column_index), HorizontalVerticalDirection::Down));
+            neighbors.insert(((up, column_index), HorizontalVerticalDirection::Up));
         }
 
         if let Some(left) = left {
-            neighbors.push(((row_index, left), HorizontalVerticalDirection::Left));
+            neighbors.insert(((row_index, left), HorizontalVerticalDirection::Left));
+        }
+
+        if let Some(down) = down {
+            neighbors.insert(((down, column_index), HorizontalVerticalDirection::Down));
+        }
+
+        if let Some(right) = right {
+            neighbors.insert(((row_index, right), HorizontalVerticalDirection::Right));
         }
 
         neighbors
@@ -163,7 +165,7 @@ impl<T> Neighbors for Grid<T> {
         row_index: Self::Index,
         column_index: Self::Index,
     ) -> HorizontalVerticalDiagonalNeighbors<Self::Index> {
-        let mut neighbors = vec![];
+        let mut neighbors = HashSet::new();
 
         let up = row_index.checked_sub(1);
         let down = {
@@ -180,44 +182,44 @@ impl<T> Neighbors for Grid<T> {
         };
 
         if let Some(up) = up {
-            neighbors.push(((up, column_index), HorizontalVerticalDiagonalDirection::Up));
+            neighbors.insert(((up, column_index), HorizontalVerticalDiagonalDirection::Up));
         }
 
         if let (Some(up), Some(right)) = (up, right) {
-            neighbors.push(((up, right), HorizontalVerticalDiagonalDirection::UpRight));
+            neighbors.insert(((up, right), HorizontalVerticalDiagonalDirection::UpRight));
         }
 
         if let Some(right) = right {
-            neighbors.push((
+            neighbors.insert((
                 (row_index, right),
                 HorizontalVerticalDiagonalDirection::Right,
             ));
         }
 
         if let (Some(down), Some(right)) = (down, right) {
-            neighbors.push((
+            neighbors.insert((
                 (down, right),
                 HorizontalVerticalDiagonalDirection::DownRight,
             ));
         }
 
         if let Some(down) = down {
-            neighbors.push((
+            neighbors.insert((
                 (down, column_index),
                 HorizontalVerticalDiagonalDirection::Down,
             ));
         }
 
         if let (Some(down), Some(left)) = (down, left) {
-            neighbors.push(((down, left), HorizontalVerticalDiagonalDirection::DownLeft));
+            neighbors.insert(((down, left), HorizontalVerticalDiagonalDirection::DownLeft));
         }
 
         if let Some(left) = left {
-            neighbors.push(((row_index, left), HorizontalVerticalDiagonalDirection::Left));
+            neighbors.insert(((row_index, left), HorizontalVerticalDiagonalDirection::Left));
         }
 
         if let (Some(up), Some(left)) = (up, left) {
-            neighbors.push(((up, left), HorizontalVerticalDiagonalDirection::UpLeft));
+            neighbors.insert(((up, left), HorizontalVerticalDiagonalDirection::UpLeft));
         }
 
         neighbors
@@ -275,6 +277,8 @@ impl<T> IndexMut<usize> for Grid<T> {
 
 #[cfg(test)]
 mod tests {
+    use hashbrown::HashSet;
+
     use super::Grid;
     use crate::shared::grids::{
         GridIter as _, HorizontalVerticalDiagonalDirection, HorizontalVerticalDirection,
@@ -344,12 +348,14 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDirection::Up),
             ((1, 2), HorizontalVerticalDirection::Right),
             ((2, 1), HorizontalVerticalDirection::Down),
             ((1, 0), HorizontalVerticalDirection::Left),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hv_neighbors(1, 1));
     }
@@ -362,10 +368,12 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDirection::Right),
             ((1, 0), HorizontalVerticalDirection::Down),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hv_neighbors(0, 0));
     }
@@ -378,7 +386,7 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDiagonalDirection::Up),
             ((0, 2), HorizontalVerticalDiagonalDirection::UpRight),
             ((1, 2), HorizontalVerticalDiagonalDirection::Right),
@@ -387,7 +395,9 @@ mod tests {
             ((2, 0), HorizontalVerticalDiagonalDirection::DownLeft),
             ((1, 0), HorizontalVerticalDiagonalDirection::Left),
             ((0, 0), HorizontalVerticalDiagonalDirection::UpLeft),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hvd_neighbors(1, 1));
     }
@@ -400,11 +410,13 @@ mod tests {
             vec!['g', 'h', 'i'],
         ]);
 
-        let v = vec![
+        let v = [
             ((0, 1), HorizontalVerticalDiagonalDirection::Right),
             ((1, 1), HorizontalVerticalDiagonalDirection::DownRight),
             ((1, 0), HorizontalVerticalDiagonalDirection::Down),
-        ];
+        ]
+        .into_iter()
+        .collect::<HashSet<_>>();
 
         assert_eq!(v, g.hvd_neighbors(0, 0));
     }

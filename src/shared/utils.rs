@@ -5,7 +5,7 @@ macro_rules! test_part_1 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!($value, (Solution {}).part_1(&read_file("inputs", &DAY)));
     }};
@@ -18,7 +18,7 @@ macro_rules! test_part_2 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!($value, (Solution {}).part_2(&read_file("inputs", &DAY)));
     }};
@@ -31,7 +31,7 @@ macro_rules! test_example_part_1 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file_part;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!(
             $value,
@@ -42,7 +42,7 @@ macro_rules! test_example_part_1 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!($value, (Solution {}).part_1(&read_file("examples", &DAY)));
     }};
@@ -55,7 +55,7 @@ macro_rules! test_example_part_2 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file_part;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!(
             $value,
@@ -66,7 +66,7 @@ macro_rules! test_example_part_2 {
         use advent_of_code_2023::shared::Parts;
         use advent_of_code_2023::shared::solution::read_file;
 
-        use crate::Solution;
+        use crate::{DAY, Solution};
 
         assert_eq!($value, (Solution {}).part_2(&read_file("examples", &DAY)));
     }};

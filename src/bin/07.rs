@@ -418,7 +418,7 @@ mod test {
 
         use advent_of_code_2023::{test_example_part_2, test_part_2};
 
-        use crate::{DAY, Hand, Type, parse_game, parse_game_jack_is_wildcard};
+        use crate::{Hand, Type, parse_game, parse_game_jack_is_wildcard};
 
         #[test]
         fn outcome() {
