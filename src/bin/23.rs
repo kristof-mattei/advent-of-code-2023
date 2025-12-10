@@ -1,3 +1,4 @@
+#![expect(clippy::type_complexity, reason = "It's Advent of Code")]
 use advent_of_code_2023::shared::grids::grid::Grid;
 use advent_of_code_2023::shared::grids::{
     GridIter as _, HorizontalVerticalDirection, Neighbors as _,
@@ -202,10 +203,6 @@ impl Graph {
             },
         }
     }
-
-    fn remove(&mut self, arrived_at: &(usize, usize)) -> Option<HashMap<(usize, usize), usize>> {
-        self.map.remove(arrived_at)
-    }
 }
 
 fn brute_force_graph(grid: &Grid<Block>) -> usize {
@@ -224,6 +221,7 @@ fn brute_force_graph(grid: &Grid<Block>) -> usize {
 
             continue;
         }
+
         let neighbors = grid.hv_neighbors(row_index, column_index);
 
         let neighbors = neighbors
@@ -256,38 +254,61 @@ fn brute_force_graph(grid: &Grid<Block>) -> usize {
         }
     }
 
-    // brute force?
-    let mut walk_through_all = vec![((start, 0), HashSet::<_>::new(), graph.clone())];
+    // convert hashmap of neighbors to vec so we can record
+    // which ones we've done without storing the list
+    let node_to_neighbors = graph
+        .map
+        .into_iter()
+        .map(|(from, edges)| (from, edges.into_iter().collect::<Vec<_>>()))
+        .collect::<HashMap<_, _>>();
 
-    let mut longest = 0;
+    let mut longest = 0_usize;
+    let mut path_visited = HashSet::new();
 
-    while let Some(((arrived_at, distance_traveled), mut history, mut remaining_graph)) =
-        walk_through_all.pop()
-    {
-        if arrived_at == end {
-            longest = longest.max(distance_traveled);
+    // (node, index into neighbors, accumulated distance)
+    let mut stack: Vec<(((usize, usize), usize), usize)> = Vec::new();
 
-            continue;
+    path_visited.insert(start);
+    stack.push(((start, 0), 0));
+
+    while let Some(((node, index), accumulated_distance)) = stack.pop() {
+        if node == end {
+            longest = longest.max(accumulated_distance);
         }
 
-        history.insert(arrived_at);
+        let Some(neighbors) = node_to_neighbors.get(&node) else {
+            // this node has no neighbors, which actually doesn't happen in thise code-base (otherwise how did we gethere?)
+            // in a different graph the edges might be unidirectional
+            // don't remove the start node
+            if node != start {
+                // nowhere to go but back
+                path_visited.remove(&node);
+            }
 
-        let Some(possibilities) = remaining_graph.remove(&arrived_at) else {
-            // not available, already visited
             continue;
         };
 
-        let mut possibilities: Vec<_> = possibilities.into_iter().collect();
+        let Some(&(neighbor, distance_to_neighbor)) = neighbors.get(index) else {
+            // no more neighbors to process
+            // don't remove the start node
+            if node != start {
+                // nowhere to go but back
+                path_visited.remove(&node);
+            }
 
-        possibilities.sort_unstable_by_key(|&(_, distance)| distance);
+            continue;
+        };
 
-        for (next, distance_to_next) in possibilities {
-            walk_through_all.push((
-                (next, distance_traveled + distance_to_next),
-                history.clone(),
-                remaining_graph.clone(),
-            ));
+        // queue up the next neighbor
+        stack.push(((node, index + 1), accumulated_distance));
+
+        if path_visited.contains(&neighbor) {
+            continue;
         }
+
+        // this neighbor works, let's explore from there
+        path_visited.insert(neighbor);
+        stack.push(((neighbor, 0), accumulated_distance + distance_to_neighbor));
     }
 
     longest
