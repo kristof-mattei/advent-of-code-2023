@@ -5,30 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug executable 'rust-seed'",
+            "name": "Debug executable 'advent-of-code-2023'",
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["run", "--bin=rust-seed"]
+                "args": ["run", "--bin=advent-of-code-2023"]
             },
             "args": [],
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_seed=TRACE"
+                "RUST_LOG": "DEBUG,advent_of_code_2023=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
         },
         {
-            "name": "Debug unit tests in executable 'rust-seed'",
+            "name": "Debug unit tests in executable 'advent-of-code-2023'",
             "type": "lldb",
             "request": "launch",
             "cargo": {
-                "args": ["test", "--bin=rust-seed"]
+                "args": ["test", "--bin=advent-of-code-2023"]
             },
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_seed=TRACE"
+                "RUST_LOG": "DEBUG,advent_of_code_2023=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
@@ -42,7 +42,7 @@
             },
             "env": {
                 "RUST_BACKTRACE": "1",
-                "RUST_LOG": "DEBUG,rust_seed=TRACE"
+                "RUST_LOG": "DEBUG,advent_of_code_2023=TRACE"
             },
             "internalConsoleOptions": "neverOpen",
             "terminal": "integrated"
