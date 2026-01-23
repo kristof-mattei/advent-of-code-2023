@@ -64,14 +64,14 @@ type HorizontalVerticalDiagonalNeighbors<T> =
 pub trait Neighbors {
     type Index: GridIndex;
 
-    /// Gets the horizontal and vertical neighbors
+    /// Gets the horizontal and vertical neighbors.
     fn hv_neighbors(
         &self,
         row_index: Self::Index,
         column_index: Self::Index,
     ) -> HorizontalVerticalNeighbors<Self::Index>;
 
-    /// Gets the horizontal, vertical, and diagonal neighbors
+    /// Gets the horizontal, vertical, and diagonal neighbors.
     fn hvd_neighbors(
         &self,
         row_index: Self::Index,
@@ -86,7 +86,7 @@ pub trait GridIter {
     fn get_row_length(&self) -> usize;
     fn get_column_length(&self) -> usize;
 
-    fn row_iter(&'_ self) -> Iter<'_, Self::GridRow> {
+    fn row_iter(&self) -> Iter<'_, Self::GridRow> {
         self.get_grid().iter()
     }
 
