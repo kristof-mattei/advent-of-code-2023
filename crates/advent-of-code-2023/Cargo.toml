@@ -1,0 +1,34 @@
+[package]
+name = "advent-of-code-2023"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+repository.workspace = true
+include.workspace = true
+
+[features]
+default = []
+
+[dependencies]
+hashbrown = { version = "0.16.1", default-features = false, features = [
+    "default-hasher",
+    "equivalent",
+    "inline-more",
+] }
+regex = { version = "1.12.3", default-features = false, features = [
+    "perf",
+    "std",
+    "unicode-case",
+    "unicode-perl", # for \d \s \w
+] }
+
+[dev-dependencies]
+pretty_assertions = "=1.4.1"
+
+[lints]
+workspace = true
