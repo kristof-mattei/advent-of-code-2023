@@ -57,6 +57,7 @@ impl Parts for Solution {
 }
 
 #[expect(clippy::allow_attributes_without_reason)]
+#[expect(clippy::as_conversions)]
 #[expect(clippy::cast_precision_loss)]
 #[expect(clippy::cast_possible_truncation)]
 #[expect(clippy::cast_sign_loss)]

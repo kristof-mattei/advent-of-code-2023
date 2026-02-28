@@ -30,6 +30,10 @@ fn parse_input_split(input: &str) -> Vec<(Label, Option<FocalLength>)> {
     parsed
 }
 
+#[expect(
+    clippy::as_conversions,
+    reason = "This is ASCII code, so 1 byte, which always fits in all supported usizes of Rust"
+)]
 fn hash_single(s: &str) -> usize {
     s.chars().map(|c| c as usize).fold(0, |mut acc, curr| {
         acc += curr;

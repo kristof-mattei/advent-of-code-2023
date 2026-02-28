@@ -105,6 +105,7 @@ impl Tile {
             (_, t) => t,
         };
 
+        #[expect(clippy::as_conversions, reason = "Only way to cast enum to type")]
         let from = from as usize;
 
         std::mem::replace(&mut self.traveled_from[from], true)
