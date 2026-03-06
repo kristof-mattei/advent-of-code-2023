@@ -203,7 +203,7 @@ fn mark_loop(map: &mut [Vec<Tile>], start: (usize, usize)) -> (Vec<(usize, usize
 pub(crate) fn shoelace(coordinates: &[(usize, usize)], perimeter: usize) -> usize {
     let mut size: isize = 0;
 
-    for coord in coordinates.windows(2) {
+    for coord in coordinates.array_windows::<2>() {
         // [ a b ]
         // [ c d ]
 

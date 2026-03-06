@@ -16,7 +16,7 @@ fn parse_lines(input: &str) -> Vec<Vec<i32>> {
 fn calculate_future_r(history: &[i32]) -> i32 {
     let mut differences = Vec::with_capacity(history.len() - 1);
 
-    for window in history.windows(2) {
+    for window in history.array_windows::<2>() {
         differences.push(window[1] - window[0]);
     }
 
@@ -40,7 +40,7 @@ fn calculate_sum_of_futures(histories: &[Vec<i32>]) -> i32 {
 fn calculate_history_r(history: &[i32]) -> i32 {
     let mut differences = Vec::with_capacity(history.len() - 1);
 
-    for window in history.windows(2) {
+    for window in history.array_windows::<2>() {
         differences.push(window[1] - window[0]);
     }
 
