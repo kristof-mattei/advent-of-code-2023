@@ -178,7 +178,7 @@ pub(crate) fn build_coordinates(
 pub(crate) fn shoelace(coordinates: &[Coordinates], perimeter: usize) -> usize {
     let mut size: isize = 0;
 
-    for coord in coordinates.windows(2) {
+    for coord in coordinates.array_windows::<2>() {
         // [ a b ]
         // [ c d ]
 
