@@ -9,4 +9,4 @@ profiling/
 # samply output
 /profile.json
 
-/data/inputs
+.env
