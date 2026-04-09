@@ -15,7 +15,7 @@ include.workspace = true
 default = []
 
 [dependencies]
-hashbrown = { version = "0.16.1", default-features = false, features = [
+hashbrown = { version = "0.17.0", default-features = false, features = [
     "default-hasher",
     "equivalent",
     "inline-more",
