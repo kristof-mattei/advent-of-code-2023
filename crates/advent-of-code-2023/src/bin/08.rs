@@ -141,8 +141,8 @@ fn follow_directions_from_multiple(network: &Network, starts: Vec<&Node>) -> usi
 
 fn find_starts(nodes: &BTreeMap<Node, (Node, Node)>) -> Vec<&Node> {
     nodes
-        .iter()
-        .filter_map(|(f, _)| if f.is_start() { Some(f) } else { None })
+        .keys()
+        .filter(|f| f.is_start())
         .collect::<Vec<&Node>>()
 }
 
