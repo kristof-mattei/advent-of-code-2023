@@ -178,7 +178,7 @@ fn to_module(
 ) -> (String, (Kind, Vec<String>)) {
     let destinations = unparsed_destinations
         .split(", ")
-        .map(ToString::to_string)
+        .map(str::to_owned)
         .collect::<Vec<String>>();
 
     if unparsed_module_name == BROADCASTER {
