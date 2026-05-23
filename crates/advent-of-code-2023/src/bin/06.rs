@@ -56,10 +56,13 @@ impl Parts for Solution {
     }
 }
 
-#[expect(clippy::allow_attributes_without_reason)]
-#[expect(clippy::cast_precision_loss)]
-#[expect(clippy::cast_possible_truncation)]
-#[expect(clippy::cast_sign_loss)]
+#[expect(
+    clippy::allow_attributes_without_reason,
+    clippy::as_conversions,
+    clippy::cast_precision_loss,
+    clippy::cast_possible_truncation,
+    clippy::cast_sign_loss
+)]
 fn calculate_possibilities(time: usize, distance: usize) -> usize {
     // solve the quadratic formula of
 

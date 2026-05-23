@@ -11,6 +11,17 @@ enum Traveling {
     Left,
 }
 
+impl From<Traveling> for usize {
+    fn from(value: Traveling) -> Self {
+        match value {
+            Traveling::Up => 0,
+            Traveling::Right => 1,
+            Traveling::Down => 2,
+            Traveling::Left => 3,
+        }
+    }
+}
+
 struct Tile {
     traveled_from: [bool; 4],
     mirror: Mirror,
@@ -105,7 +116,7 @@ impl Tile {
             (_, t) => t,
         };
 
-        let from = from as usize;
+        let from: usize = from.into();
 
         std::mem::replace(&mut self.traveled_from[from], true)
     }

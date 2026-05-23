@@ -31,13 +31,15 @@ fn parse_input_split(input: &str) -> Vec<(Label, Option<FocalLength>)> {
 }
 
 fn hash_single(s: &str) -> usize {
-    s.chars().map(|c| c as usize).fold(0, |mut acc, curr| {
-        acc += curr;
-        acc *= 17;
-        acc %= 256;
+    s.chars()
+        .map(|c| usize::try_from(c).unwrap())
+        .fold(0, |mut acc, curr| {
+            acc += curr;
+            acc *= 17;
+            acc %= 256;
 
-        acc
-    })
+            acc
+        })
 }
 
 struct Label {
