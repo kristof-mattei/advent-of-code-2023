@@ -1,4 +1,6 @@
 #![expect(clippy::type_complexity, reason = "It's Advent of Code")]
+use std::assert_matches;
+
 use advent_of_code_2023::shared::grids::grid::Grid;
 use advent_of_code_2023::shared::grids::{
     GridIter as _, HorizontalVerticalDirection, Neighbors as _,
@@ -9,6 +11,7 @@ use hashbrown::{HashMap, HashSet};
 
 advent_of_code_2023::solution!(490, 6726);
 
+#[derive(Debug)]
 enum Block {
     Open,
     Closed,
@@ -64,7 +67,7 @@ fn find_longest_path(grid: &Grid<Block>) -> Option<usize> {
 
     let end = (grid.get_row_length() - 1, grid.get_column_length() - 2);
 
-    assert!(matches!(grid[end.0][end.1], Block::Open), "Bad input");
+    assert_matches!(grid[end.0][end.1], Block::Open, "Bad input");
 
     let results = go_forth(
         grid,
