@@ -1,6 +1,4 @@
 #![expect(clippy::type_complexity, reason = "It's Advent of Code")]
-use std::assert_matches;
-
 use advent_of_code_2023::shared::grids::grid::Grid;
 use advent_of_code_2023::shared::grids::{
     GridIter as _, HorizontalVerticalDirection, Neighbors as _,
@@ -8,6 +6,7 @@ use advent_of_code_2023::shared::grids::{
 use advent_of_code_2023::shared::{PartSolution, Parts};
 use hashbrown::hash_map::Entry;
 use hashbrown::{HashMap, HashSet};
+use pretty_assertions::assert_matches;
 
 advent_of_code_2023::solution!(490, 6726);
 
