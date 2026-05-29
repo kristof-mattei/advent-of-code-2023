@@ -28,7 +28,7 @@ regex = { version = "1.12.3", default-features = false, features = [
 ] }
 
 [dev-dependencies]
-pretty_assertions = "=1.4.1"
+pretty_assertions = { version = "=1.4.1", features = ["unstable"] }
 
 [lints]
 workspace = true
