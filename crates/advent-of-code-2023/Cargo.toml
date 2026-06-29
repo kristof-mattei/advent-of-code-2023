@@ -15,13 +15,13 @@ include.workspace = true
 default = []
 
 [dependencies]
-hashbrown = { version = "0.17.1", default-features = false, features = [
+hashbrown = { version = "=0.17.1", default-features = false, features = [
     "default-hasher",
     "equivalent",
     "inline-more",
 ] }
 pretty_assertions = { version = "=1.4.1", features = ["unstable"] }
-regex = { version = "1.12.4", default-features = false, features = [
+regex = { version = "=1.12.4", default-features = false, features = [
     "perf",
     "std",
     "unicode-case",
