@@ -21,7 +21,7 @@ hashbrown = { version = "=0.17.1", default-features = false, features = [
     "inline-more",
 ] }
 pretty_assertions = { version = "=1.4.1", features = ["unstable"] }
-regex = { version = "=1.12.4", default-features = false, features = [
+regex = { version = "=1.13.0", default-features = false, features = [
     "perf",
     "std",
     "unicode-case",
