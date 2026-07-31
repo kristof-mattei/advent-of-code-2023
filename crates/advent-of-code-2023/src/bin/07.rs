@@ -432,7 +432,7 @@ mod test {
         }
 
         #[test]
-        fn get_type_baed_on_wildcards() {
+        fn get_type_based_on_wildcards() {
             let t = (Hand {
                 cards: parse_game_jack_is_wildcard("QJJQ2"),
                 bid: 0,

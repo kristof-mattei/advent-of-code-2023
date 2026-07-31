@@ -156,7 +156,7 @@ fn dfs(
             }
 
             // 0 is included here
-            // so eitehr we're chasing down a damaged collection
+            // so either we're chasing down a damaged collection
             // or not
             // either way, consider this one damaged
             if damaged_group_progress < damaged_group_size {
