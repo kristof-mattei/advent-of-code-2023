@@ -206,7 +206,7 @@ fn a_star(
 
     let mut g_score: HashMap<Node, u32> = HashMap::from([(start.clone(), 0)]);
 
-    // we don't keep an f_score as it is incoorporated in the Node
+    // we don't keep an f_score as it is incorporated in the Node
 
     let mut open_set = BinaryHeap::from([start]);
 

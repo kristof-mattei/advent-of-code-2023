@@ -103,11 +103,11 @@ fn calculate_possibilities(time: usize, distance: usize) -> usize {
     let r1 =
         f64::midpoint(time as f64, (((time * time) - 4 * distance) as f64).sqrt()).ceil() as usize;
 
-    // and the last whole number beneight root 2 -> floor
+    // and the last whole number beneath root 2 -> floor
     let r2 =
         ((time as f64 - (((time * time) - 4 * distance) as f64).sqrt()) / 2.0).floor() as usize;
 
-    // now we  take the diff of root 1 and root 2, substracting 1 because we need to break the record, not match it
+    // now we  take the diff of root 1 and root 2, subtracting 1 because we need to break the record, not match it
     r1 - r2 - 1
 }
 

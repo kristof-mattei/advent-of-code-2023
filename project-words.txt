@@ -1,8 +1,6 @@
 adduser
 appgroup
 appuser
-baed
-beneight
 bkeepers
 buildcache
 Cinstrument
@@ -11,15 +9,12 @@ Ctarget
 cves
 Deque
 dorny
-eitehr
 endfor
 endmacro
 errorlens
-gethere
 grcov
 hubot
 idents
-incoorporated
 JKKK
 kristof
 lldb
@@ -30,7 +25,6 @@ mypy
 nextest
 nvmrc
 pathbuf
-pids
 postprocessors
 prereleased
 profraw
@@ -43,7 +37,6 @@ sccache
 skopeo
 startswith
 striptags
-substracting
 swellaby
 taiki
 TARGETPLATFORMDASH

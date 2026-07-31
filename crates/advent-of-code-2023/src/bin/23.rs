@@ -279,7 +279,7 @@ fn brute_force_graph(grid: &Grid<Block>) -> usize {
         }
 
         let Some(neighbors) = node_to_neighbors.get(&node) else {
-            // this node has no neighbors, which actually doesn't happen in thise code-base (otherwise how did we gethere?)
+            // this node has no neighbors, which actually doesn't happen in thise code-base (otherwise how did we get here?)
             // in a different graph the edges might be unidirectional
             // don't remove the start node
             if node != start {
