@@ -3,9 +3,10 @@ appgroup
 appuser
 bkeepers
 buildcache
-Cinstrument
+cinstrument
 cocogitto
-Ctarget
+ctarget
+cttc
 cves
 Deque
 dorny
@@ -19,6 +20,7 @@ JKKK
 kristof
 lldb
 mattei
+mimalloc
 monomorphization
 multiplatform
 mypy
@@ -28,9 +30,10 @@ pathbuf
 postprocessors
 prereleased
 profraw
+pyflakes
 QJJQ
-Retag
-Retagging
+retag
+retagging
 rustflags
 samply
 sccache
@@ -39,9 +42,9 @@ startswith
 striptags
 swellaby
 taiki
-TARGETPLATFORMDASH
+targetplatformdash
 telem
-Tera
+tera
 thise
 topo
 trixie
