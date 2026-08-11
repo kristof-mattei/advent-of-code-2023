@@ -4,7 +4,6 @@ appuser
 bkeepers
 buildcache
 cinstrument
-cocogitto
 ctarget
 cttc
 cves
@@ -48,6 +47,7 @@ tera
 thise
 topo
 trixie
+TRUNC
 uninlined
 unseparated
 URDL
