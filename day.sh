@@ -1,8 +1,10 @@
-DAY=$(printf %02d $1)
+#!/usr/bin/env bash
 
-echo $DAY
+DAY=$(printf %02d "$1")
 
-cp ./src/template/xx.rs ./src/bin/$DAY.rs
+echo "$DAY"
 
-touch ./data/examples/$DAY.txt
-touch ./data/inputs/$DAY.txt
+cp ./src/template/xx.rs ./src/bin/"$DAY".rs
+
+touch ./data/examples/"$DAY".txt
+touch ./data/inputs/"$DAY".txt
