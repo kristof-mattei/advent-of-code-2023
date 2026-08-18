@@ -1,9 +1,11 @@
 adduser
 appgroup
 appuser
+artipacked
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cttc
 cves
@@ -25,6 +27,7 @@ multiplatform
 mypy
 nextest
 nvmrc
+oneline
 pathbuf
 postprocessors
 prereleased
@@ -49,7 +52,9 @@ topo
 trixie
 TRUNC
 uninlined
+uninspectable
 unseparated
 URDL
 usernamehw
 vadimcn
+zizmor
