@@ -1,4 +1,3 @@
-adduser
 appgroup
 appuser
 artipacked
@@ -23,7 +22,6 @@ monomorphization
 multiplatform
 mypy
 nextest
-nvmrc
 pathbuf
 postprocessors
 prereleased
@@ -32,6 +30,7 @@ pyflakes
 qjjq
 retag
 retagging
+rhysd
 rustflags
 samply
 sccache
