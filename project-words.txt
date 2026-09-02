@@ -4,6 +4,7 @@ artipacked
 bkeepers
 buildcache
 cinstrument
+cliffignore
 ctarget
 cves
 deque
@@ -16,11 +17,9 @@ hubot
 idents
 jkkk
 kristof
-lldb
 mattei
 monomorphization
 multiplatform
-mypy
 nextest
 pathbuf
 postprocessors
@@ -28,6 +27,7 @@ prereleased
 profraw
 pyflakes
 qjjq
+rawfile
 retag
 retagging
 rhysd
@@ -36,6 +36,7 @@ samply
 sccache
 skopeo
 skopeo's
+slurpfile
 startswith
 striptags
 swellaby
