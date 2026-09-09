@@ -17,6 +17,7 @@ hubot
 idents
 jkkk
 kristof
+lintian
 mattei
 monomorphization
 multiplatform
