@@ -19,6 +19,7 @@ jkkk
 kristof
 lintian
 mattei
+mkhl
 monomorphization
 multiplatform
 nextest
