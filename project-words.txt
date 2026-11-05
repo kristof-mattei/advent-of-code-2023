@@ -6,6 +6,7 @@ bkeepers
 buildcache
 cinstrument
 cliffignore
+cramer's
 ctarget
 deque
 dorny
@@ -37,6 +38,7 @@ rhysd
 rustflags
 samply
 sccache
+signum
 skopeo
 skopeo's
 slurpfile
