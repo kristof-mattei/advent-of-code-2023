@@ -27,6 +27,7 @@ regex = { version = "=1.13.1", default-features = false, features = [
     "unicode-case",
     "unicode-perl", # for \d \s \w
 ] }
+z3 = "0.22.0"
 
 [dev-dependencies]
 pretty_assertions = { version = "=1.4.1", features = ["unstable"] }
