@@ -147,7 +147,7 @@ impl std::fmt::Display for PartSolution {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for i32 {
+impl PartialEq<PartSolution> for i32 {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => *self == other,
@@ -164,7 +164,7 @@ impl std::cmp::PartialEq<PartSolution> for i32 {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for u32 {
+impl PartialEq<PartSolution> for u32 {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => i64::from(*self) == i64::from(other),
@@ -181,7 +181,7 @@ impl std::cmp::PartialEq<PartSolution> for u32 {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for i64 {
+impl PartialEq<PartSolution> for i64 {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => *self == Self::from(other),
@@ -198,7 +198,7 @@ impl std::cmp::PartialEq<PartSolution> for i64 {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for u64 {
+impl PartialEq<PartSolution> for u64 {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => Ok(*self) == Self::try_from(other),
@@ -215,7 +215,7 @@ impl std::cmp::PartialEq<PartSolution> for u64 {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for isize {
+impl PartialEq<PartSolution> for isize {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => Ok(*self) == Self::try_from(other),
@@ -232,7 +232,7 @@ impl std::cmp::PartialEq<PartSolution> for isize {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for usize {
+impl PartialEq<PartSolution> for usize {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::I32(other) => Ok(*self) == Self::try_from(other),
@@ -249,7 +249,7 @@ impl std::cmp::PartialEq<PartSolution> for usize {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for String {
+impl PartialEq<PartSolution> for String {
     fn eq(&self, other: &PartSolution) -> bool {
         match *other {
             PartSolution::String(ref s) => s == self,
@@ -266,7 +266,7 @@ impl std::cmp::PartialEq<PartSolution> for String {
     }
 }
 
-impl std::cmp::PartialEq<PartSolution> for Vec<String> {
+impl PartialEq<PartSolution> for Vec<String> {
     fn eq(&self, other: &PartSolution) -> bool {
         matches!(*other, PartSolution::Vec(ref v) if {
             if v.len() != self.len() {
@@ -284,7 +284,7 @@ impl std::cmp::PartialEq<PartSolution> for Vec<String> {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for i32 {
+impl PartialOrd<PartSolution> for i32 {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::I32(ref other) => self.partial_cmp(other),
@@ -315,7 +315,7 @@ impl std::cmp::PartialOrd<PartSolution> for i32 {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for u32 {
+impl PartialOrd<PartSolution> for u32 {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::I32(other) => {
@@ -346,7 +346,7 @@ impl std::cmp::PartialOrd<PartSolution> for u32 {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for u64 {
+impl PartialOrd<PartSolution> for u64 {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::I32(other) => {
@@ -384,7 +384,7 @@ impl std::cmp::PartialOrd<PartSolution> for u64 {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for usize {
+impl PartialOrd<PartSolution> for usize {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::I32(other) => {
@@ -435,7 +435,7 @@ impl std::cmp::PartialOrd<PartSolution> for usize {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for String {
+impl PartialOrd<PartSolution> for String {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::String(ref s) => s.partial_cmp(self),
@@ -452,7 +452,7 @@ impl std::cmp::PartialOrd<PartSolution> for String {
     }
 }
 
-impl std::cmp::PartialOrd<PartSolution> for Vec<String> {
+impl PartialOrd<PartSolution> for Vec<String> {
     fn partial_cmp(&self, other: &PartSolution) -> Option<Ordering> {
         match *other {
             PartSolution::Vec(ref v) => {

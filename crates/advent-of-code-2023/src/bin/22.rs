@@ -181,7 +181,7 @@ fn count_safe_to_remove(input: &str) -> PartSolution {
         // Check for bricks above this one
         for brick_above in above.get(&brick).unwrap_or(&HashSet::new()) {
             // If there is only one brick below then it's not safe to remove
-            if below.get(brick_above).map_or(0, hashbrown::HashSet::len) == 1 {
+            if below.get(brick_above).map_or(0, HashSet::len) == 1 {
                 can_remove = false;
             }
         }

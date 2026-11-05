@@ -129,7 +129,7 @@ impl PartialOrd for Hand {
 }
 
 impl Ord for Hand {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+    fn cmp(&self, other: &Self) -> Ordering {
         let cmp = self.get_type().cmp(&other.get_type());
 
         if cmp == Ordering::Equal {

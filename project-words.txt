@@ -42,6 +42,7 @@ skopeo's
 slurpfile
 startswith
 striptags
+supertrait
 swellaby
 taiki
 targetplatformdash
