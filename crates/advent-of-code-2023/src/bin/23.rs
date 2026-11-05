@@ -8,7 +8,7 @@ use hashbrown::hash_map::Entry;
 use hashbrown::{HashMap, HashSet};
 use pretty_assertions::assert_matches;
 
-advent_of_code_2023::solution!(490, 6726);
+advent_of_code_2023::solution!(2502, 6726);
 
 #[derive(Debug)]
 enum Block {
