@@ -1,4 +1,3 @@
-use std::convert::Into;
 use std::fmt::Debug;
 use std::ops::Range;
 
@@ -222,7 +221,7 @@ impl From<(u64, u64, u64)> for DestinationSourceRange {
     }
 }
 
-impl std::fmt::Debug for DestinationSourceRange {
+impl Debug for DestinationSourceRange {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("DestinationSourceRange")
             .field("Destination", &(self.destination))
@@ -231,6 +230,7 @@ impl std::fmt::Debug for DestinationSourceRange {
     }
 }
 
+#[expect(clippy::inline_modules, reason = "Local to this day")]
 mod parse {
     use std::ops::Range;
 
